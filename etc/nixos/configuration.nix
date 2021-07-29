@@ -2,151 +2,165 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  # Allow specific unfree packages
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "nvidia-x11"
+    "nvidia-settings"
+  ];
+
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   fileSystems."/".options = [ "compress-force=zstd" ];
 
-  nixpkgs.config.allowUnfree = true;
-
   hardware.cpu.amd.updateMicrocode = true;
-  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
+  hardware.pulseaudio.enable = true;
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 8;
+  sound.enable = true;
 
-  networking.hostName = "krypton";
+  boot.loader = {
+    systemd-boot = {
+      enable = true;
+      editor = false;
+      consoleMode = "max";
+    };
+    efi.canTouchEfiVariables = true;
+    timeout = 8;
+  };
 
   time.timeZone = "America/New_York";
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.enp7s0.useDHCP = true;
+  networking = {
+    hostName = "krypton";
+    useDHCP = false;
+    interfaces.enp7s0.useDHCP = true;
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+      "2606:4700:4700::1111"
+      "2606:4700:4700::1001"
+    ];
+  };
+
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" ];
+
+    displayManager.lightdm = {
+      enable = true;
+      extraSeatDefaults = "greeter-setup-script=/run/current-system/sw/bin/numlockx";
+      greeters.gtk = {
+        extraConfig = "background=/usr/share/backgrounds/nix-background.png";
+        theme.name = "Arc-Dark";
+        cursorTheme.name = "Numix-Cursor-Light";
+        theme.package = pkgs.arc-theme;
+        cursorTheme.package = pkgs.numix-cursor-theme;
+      };
+    };
+
+    windowManager.xmonad.enable = true;
+    windowManager.xmonad.enableContribAndExtras = true;
+
+    desktopManager.lxqt.enable = true;
+  };
+
+  users.users = {
+    root.shell = pkgs.fish;
+
+    abyss = {
+      isNormalUser = true;
+      shell = pkgs.fish;
+      extraGroups = [ "wheel" ];
+    };
+  };
+
+  environment = {
+    homeBinInPath = true;
+    shells = [ pkgs.bash pkgs.fish ];
+    memoryAllocator.provider = "jemalloc";
+    variables = {
+      VISUAL = "kak";
+      EDITOR = "kak";
+      MANPAGER = "sh -c 'col -bx | bat -pl man'";
+      QT_QPA_PLATFORMTHEME = "lxqt";
+    };
+    systemPackages = with pkgs; [
+      # text editors
+      neovim
+      kakoune
+      emacs
+      vscodium
+  
+      # shells
+      fish
+      dash
+  
+      # system
+      clang_12
+      lld_12
+      git
+      curl
+      xclip
+      numlockx
+  
+      exa
+      ripgrep
+      fd
+      bat
+  
+      # applications
+      alacritty
+      dmenu
+      i3lock
+      feh
+  
+      firefox
+      vlc
+      libreoffice
+      ghostwriter
+      qbittorrent
+  
+      # themes
+      arc-theme
+      arc-icon-theme
+      numix-cursor-theme
+    ];
+  };
+
+  programs.fish.enable = true;
+
+  fonts = {
+    fonts = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      (nerdfonts.override { fonts = [ "Monoid" ]; })
+    ];
+    fontDir.enable = true;
+    fontconfig = {
+      enable = true;
+      antialias = true;
+      hinting.enable = true;
+      defaultFonts = {
+        serif = [ "Noto Serif" ];
+        sansSerif = [ "Noto Sans" ];
+        emoji = [ "Noto Color Emoji" "Noto Emoji" ];
+        monospace = [ "Monoid Nerd Font Mono" "Noto Sans Mono" ];
+      };
+    };
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  services.xserver.displayManager.lightdm = {
-    enable = true;
-    extraSeatDefaults = "greeter-setup-script=/run/current-system/sw/bin/numlockx";
-    greeters.gtk = {
-        theme.name = "Arc-Dark";
-        cursorTheme.name = "Numix-Cursor-Light";
-        theme.package = pkgs.arc-theme;
-        cursorTheme.package = pkgs.numix-cursor-theme;
-    };
-  };
-
-  services.xserver.windowManager.leftwm.enable = true;
-  services.xserver.windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-  };
-
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  environment.variables = {
-      MANPAGER = "sh -c 'col -bx | bat -pl man'";
-      VISUAL = "kak";
-      EDITOR = "kak";
-  };
-
-  environment.homeBinInPath = true;
-
-  environment.shells = [ pkgs.bash pkgs.zsh pkgs.fish pkgs.dash ];
-
-  users.users.abyss = {
-    isNormalUser = true;
-    shell = pkgs.fish;
-    extraGroups = [ "wheel" ];
-  };
-
-  users.users.root = {
-    shell = pkgs.fish;
-  };
-
-  fonts = {
-    fontDir.enable = true;
-    fontconfig.enable = true;
-    fontconfig.antialias = true;
-    fontconfig.hinting.enable = true;
-    fontconfig.defaultFonts = {
-      serif = [ "Noto Serif" ];
-      sansSerif = [ "Noto Sans" ];
-      emoji = [ "Noto Color Emoji" "Noto Emoji" ];
-      monospace = [ "Monoid" ];
-    };
-    fonts = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      monoid
-    ];
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search <search-name>
-  environment.systemPackages = with pkgs; [
-    # text editors
-    emacs
-    neovim
-    kakoune
-
-    # shells
-    dash
-    fish
-
-    # system utilities
-    gcc
-    git
-    curl
-    feh
-    numlockx
-    exa
-    ripgrep
-    fd
-    bat
-
-    # system applications
-    slock
-    lynx
-    dmenu
-    xterm
-    alacritty
-    pavucontrol
-    picom
-
-    # user applications
-    firefox
-    vlc
-    vscodium
-    libreoffice
-    lxappearance
-
-    # etc
-    arc-theme
-    numix-cursor-theme
-  ];
-
-  programs.slock.enable = true;
-  programs.fish.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
