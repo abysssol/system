@@ -82,7 +82,6 @@
   environment = {
     homeBinInPath = true;
     shells = [ pkgs.bash pkgs.fish ];
-    memoryAllocator.provider = "jemalloc";
     variables = {
       VISUAL = "kak";
       EDITOR = "kak";
