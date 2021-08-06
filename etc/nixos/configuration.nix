@@ -104,7 +104,6 @@
       lld_12
       git
       curl
-      xclip
       numlockx
   
       exa
@@ -119,10 +118,8 @@
       feh
   
       firefox
-      vlc
       libreoffice
-      ghostwriter
-      qbittorrent
+      vlc
   
       # themes
       arc-theme
