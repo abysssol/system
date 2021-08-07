@@ -17,9 +17,11 @@
 
   fileSystems."/".options = [ "compress-force=zstd" ];
 
-  hardware.cpu.amd.updateMicrocode = true;
-  hardware.enableRedistributableFirmware = true;
-  hardware.pulseaudio.enable = true;
+  hardware = {
+    cpu.amd.updateMicrocode = true;
+    enableRedistributableFirmware = true;
+    pulseaudio.enable = true;
+  };
 
   sound.enable = true;
 
@@ -131,13 +133,13 @@
   programs.fish.enable = true;
 
   fonts = {
+    fontDir.enable = true;
     fonts = with pkgs; [
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "Monoid" ]; })
+      (nerdfonts.override { fonts = [ "Hack" ]; })
     ];
-    fontDir.enable = true;
     fontconfig = {
       enable = true;
       antialias = true;
@@ -145,8 +147,8 @@
       defaultFonts = {
         serif = [ "Noto Serif" ];
         sansSerif = [ "Noto Sans" ];
-        emoji = [ "Noto Color Emoji" "Noto Emoji" ];
-        monospace = [ "Monoid Nerd Font Mono" "Noto Sans Mono" ];
+        emoji = [ "Noto Emoji" "Noto Music" ];
+        monospace = [ "Hack Nerd Font" "Noto Sans Mono" ];
       };
     };
   };
