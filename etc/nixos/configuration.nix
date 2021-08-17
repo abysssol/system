@@ -95,7 +95,6 @@
       neovim
       kakoune
       emacs
-      vscodium
   
       # shells
       fish
@@ -104,6 +103,7 @@
       # system
       clang_12
       lld_12
+      llvmPackages_12.bintools
       git
       curl
       numlockx
@@ -112,16 +112,18 @@
       ripgrep
       fd
       bat
+      procs
   
       # applications
       alacritty
       dmenu
       i3lock
       feh
-  
+      xmobar
+
       firefox
-      libreoffice
       vlc
+      libreoffice
   
       # themes
       arc-theme
