@@ -9,6 +9,9 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "nvidia-x11"
     "nvidia-settings"
+    "steam"
+    "steam-original"
+    "steam-runtime"
   ];
 
   imports = [
@@ -133,6 +136,7 @@
   };
 
   programs.fish.enable = true;
+  programs.steam.enable = true;
 
   fonts = {
     fontDir.enable = true;
