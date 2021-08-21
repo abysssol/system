@@ -109,6 +109,7 @@
       llvmPackages_12.bintools
       git
       curl
+      p7zip
       numlockx
   
       exa
@@ -130,7 +131,7 @@
   
       # themes
       arc-theme
-      arc-icon-theme
+      paper-icon-theme
       numix-cursor-theme
     ];
   };
