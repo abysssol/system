@@ -68,8 +68,11 @@
       };
     };
 
-    windowManager.xmonad.enable = true;
-    windowManager.xmonad.enableContribAndExtras = true;
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      extraPackages = haskell: [ haskell.taffybar ];
+    };
 
     desktopManager.lxqt.enable = true;
   };
