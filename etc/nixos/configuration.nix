@@ -19,6 +19,11 @@
   ];
 
   fileSystems."/".options = [ "compress-force=zstd" ];
+  fileSystems."/overflow" = {
+      device = "/dev/disk/by-uuid/a58c77ad-973f-4243-a882-9a0eab23047f";
+      fsType = "btrfs";
+      options = [ "compress-force=zstd" ];
+  };
 
   hardware = {
     cpu.amd.updateMicrocode = true;
@@ -95,6 +100,7 @@
       EDITOR = "kak";
       MANPAGER = "sh -c 'col -bx | bat -pl man'";
       QT_QPA_PLATFORMTHEME = "lxqt";
+      GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
     };
     systemPackages = with pkgs; [
       # text editors
@@ -120,13 +126,14 @@
       fd
       bat
       procs
+      starship
   
       # applications
       alacritty
       dmenu
       i3lock
       feh
-      xmobar
+      taffybar
 
       firefox
       vlc
@@ -138,6 +145,8 @@
       numix-cursor-theme
     ];
   };
+
+  gtk.iconCache.enable = true;
 
   programs.fish.enable = true;
   programs.steam.enable = true;
