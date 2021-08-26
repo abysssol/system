@@ -104,8 +104,8 @@
     };
     systemPackages = with pkgs; [
       # text editors
-      neovim
       kakoune
+      neovim
       emacs
   
       # shells
@@ -113,32 +113,26 @@
       dash
   
       # system
+      llvmPackages_12.bintools
       clang_12
       lld_12
-      llvmPackages_12.bintools
       git
       curl
       p7zip
       numlockx
   
-      exa
-      ripgrep
       fd
+      exa
       bat
       procs
-      starship
+      ripgrep
   
       # applications
       alacritty
       dmenu
-      i3lock
       feh
-      taffybar
-
       firefox
-      vlc
-      libreoffice
-  
+
       # themes
       arc-theme
       paper-icon-theme
@@ -149,6 +143,7 @@
   gtk.iconCache.enable = true;
 
   programs.fish.enable = true;
+  programs.slock.enable = true;
   programs.steam.enable = true;
 
   fonts = {
