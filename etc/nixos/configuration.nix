@@ -89,6 +89,23 @@
       isNormalUser = true;
       shell = pkgs.fish;
       extraGroups = [ "wheel" ];
+      packages = with pkgs; [
+        rustup
+        taffybar
+        starship
+        mdbook
+        kak-lsp
+        rust-analyzer
+        i3lock
+        neofetch
+        audacity
+        blender
+        gimp
+        inkscape
+        krita
+        vscodium
+        multimc
+      ];
     };
   };
 
@@ -119,6 +136,7 @@
       git
       curl
       p7zip
+      xclip
       numlockx
   
       fd
@@ -132,6 +150,7 @@
       dmenu
       feh
       firefox
+      vlc
 
       # themes
       arc-theme
