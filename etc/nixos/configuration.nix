@@ -130,9 +130,8 @@
       dash
   
       # system
-      llvmPackages_12.bintools
       clang_12
-      lld_12
+      llvmPackages_12.bintools
       git
       curl
       p7zip
