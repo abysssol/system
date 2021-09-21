@@ -88,7 +88,7 @@
     abyss = {
       isNormalUser = true;
       shell = pkgs.fish;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "transmission" ];
       packages = with pkgs; [
         rustup
         taffybar
@@ -150,6 +150,7 @@
       feh
       firefox
       vlc
+      kiwix
 
       # themes
       arc-theme
@@ -159,6 +160,8 @@
   };
 
   gtk.iconCache.enable = true;
+
+  services.transmission.enable = true;
 
   programs.fish.enable = true;
   programs.slock.enable = true;
