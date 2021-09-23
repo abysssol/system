@@ -31,17 +31,17 @@
     pulseaudio.enable = true;
   };
 
-  sound.enable = true;
-
   boot.loader = {
+    efi.canTouchEfiVariables = true;
+    timeout = 8;
     systemd-boot = {
       enable = true;
       editor = false;
       consoleMode = "max";
     };
-    efi.canTouchEfiVariables = true;
-    timeout = 8;
   };
+
+  sound.enable = true;
 
   time.timeZone = "America/New_York";
 
