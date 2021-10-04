@@ -31,6 +31,7 @@
     pulseaudio.enable = true;
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.loader = {
     efi.canTouchEfiVariables = true;
     timeout = 8;
@@ -96,7 +97,6 @@
         mdbook
         kak-lsp
         rust-analyzer
-        i3lock
         neofetch
         audacity
         blender
@@ -105,6 +105,7 @@
         krita
         vscodium
         multimc
+        godot
       ];
     };
   };
@@ -147,10 +148,12 @@
       # applications
       alacritty
       dmenu
+      i3lock
       feh
       firefox
       vlc
       kiwix
+      libreoffice
 
       # themes
       arc-theme
