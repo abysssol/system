@@ -92,20 +92,13 @@
       extraGroups = [ "wheel" "transmission" ];
       packages = with pkgs; [
         rustup
-        taffybar
-        starship
-        mdbook
         kak-lsp
         rust-analyzer
-        neofetch
-        audacity
-        blender
-        gimp
-        inkscape
-        krita
-        vscodium
-        multimc
+        mdbook
         godot
+        easytag
+        multimc
+        zola
       ];
     };
   };
@@ -125,6 +118,7 @@
       kakoune
       neovim
       emacs
+      vscodium
   
       # shells
       fish
@@ -132,28 +126,43 @@
   
       # system
       clang_12
-      llvmPackages_12.bintools
+      llvmPackages_latest.bintools
       git
       curl
       p7zip
       xclip
       numlockx
+      appimage-run
+
+      # cli
+      neofetch
+      youtube-dl
+      pandoc
   
-      fd
       exa
       bat
-      procs
       ripgrep
+      fd
+      procs
+      tokei
+      starship
   
-      # applications
+      # gui
       alacritty
       dmenu
       i3lock
       feh
+      taffybar
       firefox
       vlc
       kiwix
       libreoffice
+      ghostwriter
+      audacity
+      blender
+      krita
+      gimp
+      inkscape
 
       # themes
       arc-theme
