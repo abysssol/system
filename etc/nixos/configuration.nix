@@ -102,7 +102,7 @@
     abyss = {
       isNormalUser = true;
       shell = pkgs.fish;
-      extraGroups = [ "wheel" "transmission" ];
+      extraGroups = [ "wheel" "transmission" "plugdev" ];
       packages = with pkgs; [
         rustup
         kak-lsp
