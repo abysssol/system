@@ -20,15 +20,14 @@
 
   fileSystems."/".options = [ "compress-force=zstd" ];
   fileSystems."/overflow" = {
-      device = "/dev/disk/by-uuid/a58c77ad-973f-4243-a882-9a0eab23047f";
-      fsType = "btrfs";
-      options = [ "compress-force=zstd" ];
+    device = "/dev/disk/by-uuid/a58c77ad-973f-4243-a882-9a0eab23047f";
+    fsType = "btrfs";
+    options = [ "compress-force=zstd" ];
   };
 
   hardware = {
     cpu.amd.updateMicrocode = true;
     enableRedistributableFirmware = true;
-    pulseaudio.enable = true;
   };
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -41,8 +40,6 @@
       consoleMode = "max";
     };
   };
-
-  sound.enable = true;
 
   time.timeZone = "America/New_York";
 
@@ -58,29 +55,44 @@
     ];
   };
 
-  services.xserver = {
-    enable = true;
-    videoDrivers = [ "nvidia" ];
+  security.rtkit.enable = true;
 
-    displayManager.lightdm = {
+  services = {
+    transmission.enable = true;
+
+    pipewire = {
       enable = true;
-      extraSeatDefaults = "greeter-setup-script=/run/current-system/sw/bin/numlockx";
-      greeters.gtk = {
-        extraConfig = "background=/usr/share/backgrounds/nix-background.png";
-        theme.name = "Arc-Dark";
-        cursorTheme.name = "Numix-Cursor-Light";
-        theme.package = pkgs.arc-theme;
-        cursorTheme.package = pkgs.numix-cursor-theme;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
+
+    xserver = {
+      enable = true;
+      videoDrivers = [ "nvidia" ];
+
+
+      displayManager.lightdm = {
+        enable = true;
+        extraSeatDefaults = "greeter-setup-script=/run/current-system/sw/bin/numlockx";
+        greeters.gtk = {
+          extraConfig = "background=/usr/share/backgrounds/nix-background.png";
+          theme.name = "Arc-Dark";
+          cursorTheme.name = "Numix-Cursor-Light";
+          theme.package = pkgs.arc-theme;
+          cursorTheme.package = pkgs.numix-cursor-theme;
+        };
       };
-    };
 
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-      extraPackages = haskell: [ haskell.taffybar ];
-    };
+      windowManager.xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+        extraPackages = haskell: [ haskell.taffybar ];
+      };
 
-    desktopManager.lxqt.enable = true;
+      desktopManager.lxqt.enable = true;
+    };
   };
 
   users.users = {
@@ -119,14 +131,15 @@
       neovim
       emacs
       vscodium
-  
+
       # shells
       fish
       dash
-  
+
       # system
       clang_12
       llvmPackages_latest.bintools
+      llvmPackages_latest.lld
       git
       curl
       p7zip
@@ -138,7 +151,7 @@
       neofetch
       youtube-dl
       pandoc
-  
+
       exa
       bat
       ripgrep
@@ -146,7 +159,7 @@
       procs
       tokei
       starship
-  
+
       # gui
       alacritty
       dmenu
@@ -172,8 +185,6 @@
   };
 
   gtk.iconCache.enable = true;
-
-  services.transmission.enable = true;
 
   programs.fish.enable = true;
   programs.slock.enable = true;
