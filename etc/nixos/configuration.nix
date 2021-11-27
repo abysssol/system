@@ -28,6 +28,7 @@
   hardware = {
     cpu.amd.updateMicrocode = true;
     enableRedistributableFirmware = true;
+    openrazer.enable = true;
   };
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
