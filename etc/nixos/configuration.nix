@@ -191,6 +191,7 @@
   programs.steam.enable = true;
   programs.less.enable = true;
   programs.htop.enable = true;
+  programs.corectrl.enable = true;
   programs.git.enable = true;
   programs.git.config = {
     init.defaultBranch = "master";
