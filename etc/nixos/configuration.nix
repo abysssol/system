@@ -102,7 +102,7 @@
     abyss = {
       isNormalUser = true;
       shell = pkgs.fish;
-      extraGroups = [ "wheel" "transmission" "plugdev" ];
+      extraGroups = [ "wheel" "transmission" "openrazer" ];
       packages = with pkgs; [
         rustup
         kak-lsp
@@ -141,7 +141,6 @@
       clang_12
       llvmPackages_latest.bintools
       llvmPackages_latest.lld
-      git
       curl
       p7zip
       xclip
@@ -190,6 +189,16 @@
   programs.fish.enable = true;
   programs.slock.enable = true;
   programs.steam.enable = true;
+  programs.less.enable = true;
+  programs.htop.enable = true;
+  programs.git.enable = true;
+  programs.git.config = {
+    init.defaultBranch = "master";
+    core = {
+      editor = "kak";
+      askpass = "";
+    };
+  };
 
   fonts = {
     fontDir.enable = true;
