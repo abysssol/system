@@ -99,10 +99,10 @@
       isNormalUser = true;
       shell = pkgs.fish;
       extraGroups = [
-          "wheel"
-          "corectrl"
-          "openrazer"
-          "transmission"
+        "wheel"
+        "corectrl"
+        "openrazer"
+        "transmission"
       ];
       packages = with pkgs; [
         rustup
