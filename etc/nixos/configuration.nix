@@ -19,11 +19,7 @@
   ];
 
   fileSystems."/".options = [ "compress-force=zstd" ];
-  fileSystems."/overflow" = {
-    device = "/dev/disk/by-uuid/a58c77ad-973f-4243-a882-9a0eab23047f";
-    fsType = "btrfs";
-    options = [ "compress-force=zstd" ];
-  };
+  fileSystems."/overflow".options = [ "compress-force=zstd" ];
 
   hardware = {
     cpu.amd.updateMicrocode = true;
@@ -102,7 +98,12 @@
     abyss = {
       isNormalUser = true;
       shell = pkgs.fish;
-      extraGroups = [ "wheel" "transmission" "openrazer" ];
+      extraGroups = [
+          "wheel"
+          "corectrl"
+          "openrazer"
+          "transmission"
+      ];
       packages = with pkgs; [
         rustup
         kak-lsp
@@ -111,7 +112,7 @@
         godot
         easytag
         multimc
-        zola
+        razergenie
       ];
     };
   };
