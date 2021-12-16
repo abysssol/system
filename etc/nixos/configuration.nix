@@ -43,7 +43,32 @@
     interfaces.enp7s0.useDHCP = true;
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
+
+    displayManager = {
+      defaultSession = "none+xmonad";
+      lightdm.extraSeatDefaults = "greeter-setup-script=/run/current-system/sw/bin/numlockx";
+      lightdm.greeters.mini = {
+        enable = true;
+        user = "abyss";
+        extraConfig = ''
+          [greeter]
+          show-password-label = false
+          password-alignment = center
+          password-input-width = 12
+          [greeter-hotkeys]
+          mod-key = control
+          [greeter-theme]
+          background-image = "/etc/nixos/background.png"
+          window-color = "#839496"
+          border-color = "#268bd2"
+          password-border-color = "#268bd2"
+        '';
+      };
+    };
+  };
+
 
   users.users = {
     abyss = {
@@ -60,10 +85,11 @@
         kak-lsp
         rust-analyzer
         mdbook
-        godot
         easytag
         multimc
         razergenie
+        youtube-dl
+        pandoc
       ];
     };
   };

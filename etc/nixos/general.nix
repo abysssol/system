@@ -35,18 +35,6 @@
     xserver = {
       enable = true;
 
-      displayManager.lightdm = {
-        enable = true;
-        extraSeatDefaults = "greeter-setup-script=/run/current-system/sw/bin/numlockx";
-        greeters.gtk = {
-          extraConfig = "background=/etc/nixos/background.png";
-          theme.name = "Arc-Dark";
-          cursorTheme.name = "Numix-Cursor-Light";
-          theme.package = pkgs.arc-theme;
-          cursorTheme.package = pkgs.numix-cursor-theme;
-        };
-      };
-
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
@@ -63,8 +51,8 @@
     homeBinInPath = true;
     shells = [ pkgs.bash pkgs.fish ];
     variables = {
-      VISUAL = "kak";
-      EDITOR = "kak";
+      VISUAL = "nvim";
+      EDITOR = "nvim";
       MANPAGER = "sh -c 'col -bx | bat -pl man'";
       QT_QPA_PLATFORMTHEME = "lxqt";
       GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
@@ -83,7 +71,6 @@
       # system
       clang_12
       llvmPackages_latest.bintools
-      llvmPackages_latest.lld
       curl
       p7zip
       xclip
@@ -92,8 +79,6 @@
 
       # cli
       neofetch
-      youtube-dl
-      pandoc
 
       exa
       bat
@@ -106,7 +91,6 @@
       # gui
       alacritty
       dmenu
-      i3lock
       feh
       taffybar
       firefox
@@ -119,6 +103,7 @@
       krita
       gimp
       inkscape
+      godot
 
       # themes
       arc-theme
@@ -137,7 +122,7 @@
     git.config = {
       init.defaultBranch = "master";
       core = {
-        editor = "kak";
+        editor = "nvim";
         askpass = "";
       };
     };
