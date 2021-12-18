@@ -22,6 +22,7 @@
   security.rtkit.enable = true;
 
   services = {
+    emacs.enable = true;
     transmission.enable = true;
 
     pipewire = {
@@ -51,8 +52,8 @@
     homeBinInPath = true;
     shells = [ pkgs.bash pkgs.fish ];
     variables = {
-      VISUAL = "nvim";
-      EDITOR = "nvim";
+      VISUAL = "emacsclient -c -a ''";
+      EDITOR = "emacsclient -c -a ''";
       MANPAGER = "sh -c 'col -bx | bat -pl man'";
       QT_QPA_PLATFORMTHEME = "lxqt";
       GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
@@ -61,7 +62,6 @@
       # text editors
       kakoune
       neovim
-      emacs
       vscodium
 
       # shells
@@ -122,7 +122,7 @@
     git.config = {
       init.defaultBranch = "master";
       core = {
-        editor = "nvim";
+        editor = "emacsclient -c -a ''";
         askpass = "";
       };
     };
