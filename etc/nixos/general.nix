@@ -3,20 +3,14 @@
 {
   fileSystems."/".options = [ "compress-force=zstd" ];
 
-  hardware = {
-    enableRedistributableFirmware = true;
-  };
+  hardware = { enableRedistributableFirmware = true; };
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   networking = {
     useDHCP = false;
-    nameservers = [
-      "1.1.1.1"
-      "1.0.0.1"
-      "2606:4700:4700::1111"
-      "2606:4700:4700::1001"
-    ];
+    nameservers =
+      [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
   };
 
   security.rtkit.enable = true;
@@ -56,18 +50,10 @@
       EDITOR = "emacsclient -c -a ''";
       MANPAGER = "sh -c 'col -bx | bat -pl man'";
       QT_QPA_PLATFORMTHEME = "lxqt";
-      GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
+      GDK_PIXBUF_MODULE_FILE =
+        "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
     };
     systemPackages = with pkgs; [
-      # text editors
-      kakoune
-      neovim
-      vscodium
-
-      # shells
-      fish
-      dash
-
       # system
       clang_12
       llvmPackages_latest.bintools
@@ -103,7 +89,6 @@
       krita
       gimp
       inkscape
-      godot
 
       # themes
       arc-theme
@@ -114,6 +99,7 @@
 
   programs = {
     fish.enable = true;
+    neovim.enable = true;
     slock.enable = true;
     less.enable = true;
     htop.enable = true;

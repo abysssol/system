@@ -5,19 +5,11 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ./general.nix
-  ];
+  imports = [ ./hardware-configuration.nix ./general.nix ];
 
   # Allow specific unfree packages
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "nvidia-x11"
-    "nvidia-settings"
-    "steam"
-    "steam-original"
-    "steam-runtime"
-  ];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [ "nvidia-x11" "nvidia-settings" ];
 
   fileSystems."/overflow".options = [ "compress-force=zstd" ];
 
@@ -48,7 +40,8 @@
 
     displayManager = {
       defaultSession = "none+xmonad";
-      lightdm.extraSeatDefaults = "greeter-setup-script=/run/current-system/sw/bin/numlockx";
+      lightdm.extraSeatDefaults =
+        "greeter-setup-script=/run/current-system/sw/bin/numlockx";
       lightdm.greeters.mini = {
         enable = true;
         user = "abyss";
@@ -69,32 +62,22 @@
     };
   };
 
-
   users.users = {
     abyss = {
       isNormalUser = true;
       shell = pkgs.fish;
-      extraGroups = [
-        "wheel"
-        "corectrl"
-        "openrazer"
-        "transmission"
-      ];
+      extraGroups = [ "wheel" "corectrl" "openrazer" "transmission" ];
       packages = with pkgs; [
         rustup
-        kak-lsp
         rust-analyzer
         mdbook
-        easytag
         multimc
         razergenie
-        youtube-dl
-        pandoc
+        godot
       ];
+
     };
   };
-
-  programs.steam.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
