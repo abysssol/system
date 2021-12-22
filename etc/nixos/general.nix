@@ -117,6 +117,7 @@
   gtk.iconCache.enable = true;
 
   fonts = {
+    enableDefaultFonts = true;
     fontDir.enable = true;
     fonts = with pkgs; [
       noto-fonts
