@@ -9,7 +9,13 @@
 
   # Allow specific unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [ "nvidia-x11" "nvidia-settings" ];
+    builtins.elem (lib.getName pkg) [
+      "nvidia-x11"
+      "nvidia-settings"
+      "steam"
+      "steam-original"
+      "steam-runtime"
+    ];
 
   fileSystems."/overflow".options = [ "compress-force=zstd" ];
 
@@ -78,6 +84,8 @@
 
     };
   };
+
+  programs.steam.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
