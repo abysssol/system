@@ -80,6 +80,7 @@
       feh
       taffybar
       firefox
+      mpv
       vlc
       kiwix
       libreoffice
