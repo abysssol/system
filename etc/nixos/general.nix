@@ -57,6 +57,7 @@
       # system
       clang_12
       llvmPackages_latest.bintools
+      mold
       curl
       p7zip
       xclip
