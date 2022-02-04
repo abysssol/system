@@ -66,6 +66,10 @@
 
       # cli
       neofetch
+      wineWowPackages.full
+      nixfmt
+      shfmt
+      shellcheck
 
       exa
       bat

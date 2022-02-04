@@ -22,6 +22,7 @@
   hardware = {
     cpu.amd.updateMicrocode = true;
     openrazer.enable = true;
+    opentabletdriver.enable = true;
   };
 
   boot.loader = {
@@ -43,6 +44,8 @@
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
+    wacom.enable = true;
+    digimend.enable = true;
 
     displayManager = {
       defaultSession = "none+xmonad";
@@ -78,8 +81,11 @@
         rust-analyzer
         mdbook
         multimc
+        legendary-gl
         razergenie
         godot
+        easytag
+        youtube-dl
       ];
 
     };
