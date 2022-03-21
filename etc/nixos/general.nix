@@ -57,7 +57,6 @@
       # system
       clang_12
       llvmPackages_latest.bintools
-      mold
       curl
       p7zip
       xclip
@@ -95,6 +94,7 @@
       krita
       gimp
       inkscape
+      virt-manager
 
       # themes
       arc-theme
@@ -110,6 +110,7 @@
     less.enable = true;
     htop.enable = true;
     corectrl.enable = true;
+    dconf.enable = true;
     git.enable = true;
     git.config = {
       init.defaultBranch = "master";
@@ -119,6 +120,9 @@
       };
     };
   };
+
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   gtk.iconCache.enable = true;
 

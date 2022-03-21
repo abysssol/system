@@ -75,7 +75,8 @@
     abyss = {
       isNormalUser = true;
       shell = pkgs.fish;
-      extraGroups = [ "wheel" "corectrl" "openrazer" "transmission" ];
+      extraGroups =
+        [ "wheel" "corectrl" "openrazer" "transmission" "libvirtd" "kvm" ];
       packages = with pkgs; [
         rustup
         rust-analyzer
