@@ -64,6 +64,9 @@
       appimage-run
 
       # cli
+      yt-dlp
+      pandoc
+      imagemagick
       neofetch
       wineWowPackages.full
       nixfmt
@@ -78,13 +81,15 @@
       tokei
       starship
 
+      # cli/gui
+      feh
+      mpv
+      dmenu
+
       # gui
       alacritty
-      dmenu
-      feh
       taffybar
       firefox
-      mpv
       vlc
       kiwix
       libreoffice

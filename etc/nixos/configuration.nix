@@ -86,9 +86,7 @@
         razergenie
         godot
         easytag
-        youtube-dl
       ];
-
     };
   };
 
