@@ -17,7 +17,7 @@
       "steam-runtime"
     ];
 
-  fileSystems."/overflow".options = [ "compress-force=zstd" ];
+  fileSystems."/ext".options = [ "compress-force=zstd" ];
 
   hardware = {
     cpu.amd.updateMicrocode = true;
