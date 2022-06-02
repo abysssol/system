@@ -17,6 +17,7 @@
       "steam-runtime"
     ];
 
+  fileSystems."/".options = [ "compress-force=zstd" ];
   fileSystems."/ext".options = [ "compress-force=zstd" ];
 
   hardware = {
@@ -51,22 +52,15 @@
       defaultSession = "none+xmonad";
       lightdm.extraSeatDefaults =
         "greeter-setup-script=/run/current-system/sw/bin/numlockx";
-      lightdm.greeters.mini = {
+      lightdm.greeters.gtk = {
         enable = true;
-        user = "abyss";
-        extraConfig = ''
-          [greeter]
-          show-password-label = false
-          password-alignment = center
-          password-input-width = 12
-          [greeter-hotkeys]
-          mod-key = control
-          [greeter-theme]
-          background-image = "/etc/nixos/background.png"
-          window-color = "#839496"
-          border-color = "#268bd2"
-          password-border-color = "#268bd2"
-        '';
+        extraConfig = "background=/etc/nixos/background";
+        theme.name = "NumixSolarizedDarkBlue";
+        theme.package = pkgs.numix-solarized-gtk-theme;
+        cursorTheme.name = "Nordzy-cursors";
+        cursorTheme.package = pkgs.nordzy-cursor-theme;
+        iconTheme.name = "Paper";
+        iconTheme.package = pkgs.paper-icon-theme;
       };
     };
   };
@@ -81,11 +75,9 @@
         rustup
         rust-analyzer
         mdbook
-        multimc
-        legendary-gl
         razergenie
-        godot
-        easytag
+        legendary-gl
+        polymc
       ];
     };
   };

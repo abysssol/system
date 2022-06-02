@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  fileSystems."/".options = [ "compress-force=zstd" ];
-
   hardware = { enableRedistributableFirmware = true; };
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -17,6 +15,7 @@
 
   services = {
     emacs.enable = true;
+    emacs.package = pkgs.emacsNativeComp;
     transmission.enable = true;
 
     pipewire = {
@@ -30,10 +29,11 @@
     xserver = {
       enable = true;
 
+      windowManager.leftwm.enable = true;
+
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        extraPackages = haskell: [ haskell.taffybar ];
       };
 
       desktopManager.lxqt.enable = true;
@@ -58,10 +58,10 @@
       clang_12
       llvmPackages_latest.bintools
       curl
-      p7zip
       xclip
       numlockx
       appimage-run
+      alsa-utils
 
       # cli
       yt-dlp
@@ -69,9 +69,15 @@
       imagemagick
       neofetch
       wineWowPackages.full
-      nixfmt
-      shfmt
+      ncdu
+      p7zip
+      wasmer
+      rlwrap
       shellcheck
+      shfmt
+      nixfmt
+      nodePackages.prettier
+      haskellPackages.brittany
 
       exa
       bat
@@ -81,17 +87,16 @@
       tokei
       starship
 
-      # cli/gui
-      feh
-      mpv
-      dmenu
-
       # gui
       alacritty
-      taffybar
-      firefox
+      dmenu
+      feh
+      mpv
       vlc
+      firefox
       kiwix
+      tor-browser-bundle-bin
+      virt-manager
       libreoffice
       ghostwriter
       audacity
@@ -99,12 +104,16 @@
       krita
       gimp
       inkscape
-      virt-manager
+      obs-studio
+      kdenlive
+      easytag
+      godot
+      taffybar
 
       # themes
-      arc-theme
+      numix-solarized-gtk-theme
       paper-icon-theme
-      numix-cursor-theme
+      nordzy-cursor-theme
     ];
   };
 
@@ -147,7 +156,7 @@
       defaultFonts = {
         serif = [ "Noto Serif" ];
         sansSerif = [ "Noto Sans" ];
-        emoji = [ "Noto Emoji" "Noto Music" ];
+        emoji = [ "Noto Color Emoji" "Noto Emoji" "Noto Music" "FontAwesome" ];
         monospace = [ "Hack Nerd Font" "Noto Sans Mono" ];
       };
     };
