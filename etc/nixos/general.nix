@@ -58,6 +58,7 @@
       clang_12
       llvmPackages_latest.bintools
       curl
+      tldr
       xclip
       numlockx
       appimage-run
