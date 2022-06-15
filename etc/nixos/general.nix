@@ -11,8 +11,6 @@
       [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
   };
 
-  security.rtkit.enable = true;
-
   services = {
     emacs.enable = true;
     emacs.package = pkgs.emacsNativeComp;
@@ -24,6 +22,7 @@
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
+      wireplumber.enable = true;
     };
 
     xserver = {
