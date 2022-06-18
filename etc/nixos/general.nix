@@ -57,6 +57,7 @@
       clang_12
       llvmPackages_latest.bintools
       curl
+      gnupg
       tldr
       xclip
       numlockx
@@ -125,6 +126,8 @@
     htop.enable = true;
     corectrl.enable = true;
     dconf.enable = true;
+    gnupg.agent.enable = true;
+    gnupg.agent.pinentryFlavor = "tty";
     git.enable = true;
     git.config = {
       init.defaultBranch = "master";
