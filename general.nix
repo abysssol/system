@@ -43,7 +43,7 @@
 
   environment = {
     homeBinInPath = true;
-    shells = [ pkgs.bash pkgs.zsh pkgs.fish pkgs.elvish ];
+    shells = [ pkgs.bash pkgs.zsh pkgs.fish ];
     variables = {
       VISUAL = "emacsclient -c -a ''";
       EDITOR = "emacsclient -c -a ''";
@@ -73,6 +73,7 @@
       ncdu
 
       hunspell
+      hunspellDicts.en_US
       shellcheck
       shfmt
       nixfmt

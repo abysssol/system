@@ -68,7 +68,7 @@
   users.users = {
     abyss = {
       isNormalUser = true;
-      shell = pkgs.elvish;
+      shell = pkgs.fish;
       extraGroups =
         [ "wheel" "corectrl" "openrazer" "transmission" "libvirtd" "kvm" ];
       packages = with pkgs; [
@@ -80,7 +80,7 @@
         polymc
         easytag
         ghc
-        haskellPackages.hls
+        haskell-language-server
         haskellPackages.brittany
       ];
     };
