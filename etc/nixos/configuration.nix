@@ -79,6 +79,9 @@
         legendary-gl
         polymc
         easytag
+        ghc
+        haskellPackages.hls
+        haskellPackages.brittany
       ];
     };
   };

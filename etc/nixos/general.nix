@@ -53,7 +53,7 @@
         "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
     };
     systemPackages = with pkgs; [
-      # system
+      # cli
       llvmPackages_latest.clang
       llvmPackages_latest.bintools
       curl
@@ -62,7 +62,6 @@
       appimage-run
       alsa-utils
 
-      # cli
       neofetch
       tldr
       yt-dlp
@@ -72,11 +71,12 @@
       p7zip
       wasmer
       ncdu
+
+      hunspell
       shellcheck
       shfmt
       nixfmt
       nodePackages.prettier
-      haskellPackages.brittany
 
       exa
       bat
