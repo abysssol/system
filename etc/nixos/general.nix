@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  hardware = { enableRedistributableFirmware = true; };
+  hardware.enableRedistributableFirmware = true;
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
@@ -18,17 +18,15 @@
 
     pipewire = {
       enable = true;
+      wireplumber.enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
-      wireplumber.enable = true;
     };
 
     xserver = {
       enable = true;
-
-      windowManager.leftwm.enable = true;
 
       windowManager.xmonad = {
         enable = true;
@@ -39,11 +37,13 @@
     };
   };
 
+  gtk.iconCache.enable = true;
+
   users.users.root.shell = pkgs.fish;
 
   environment = {
     homeBinInPath = true;
-    shells = [ pkgs.bash pkgs.fish ];
+    shells = [ pkgs.bash pkgs.zsh pkgs.fish pkgs.elvish ];
     variables = {
       VISUAL = "emacsclient -c -a ''";
       EDITOR = "emacsclient -c -a ''";
@@ -54,26 +54,24 @@
     };
     systemPackages = with pkgs; [
       # system
-      clang_12
+      llvmPackages_latest.clang
       llvmPackages_latest.bintools
       curl
-      gnupg
-      tldr
       xclip
       numlockx
       appimage-run
       alsa-utils
 
       # cli
+      neofetch
+      tldr
       yt-dlp
       pandoc
       imagemagick
-      neofetch
       wineWowPackages.full
-      ncdu
       p7zip
       wasmer
-      rlwrap
+      ncdu
       shellcheck
       shfmt
       nixfmt
@@ -107,14 +105,13 @@
       inkscape
       obs-studio
       kdenlive
-      easytag
       godot
       taffybar
 
       # themes
-      numix-solarized-gtk-theme
+      juno-theme
       paper-icon-theme
-      nordzy-cursor-theme
+      phinger-cursors
     ];
   };
 
@@ -132,7 +129,7 @@
     git.config = {
       init.defaultBranch = "master";
       core = {
-        editor = "emacsclient -c -a ''";
+        editor = "emacsclient -t -a ''";
         askpass = "";
       };
     };
@@ -140,8 +137,6 @@
 
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
-
-  gtk.iconCache.enable = true;
 
   fonts = {
     enableDefaultFonts = true;

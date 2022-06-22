@@ -55,10 +55,10 @@
       lightdm.greeters.gtk = {
         enable = true;
         extraConfig = "background=/etc/nixos/background";
-        theme.name = "NumixSolarizedDarkBlue";
-        theme.package = pkgs.numix-solarized-gtk-theme;
-        cursorTheme.name = "Nordzy-cursors";
-        cursorTheme.package = pkgs.nordzy-cursor-theme;
+        theme.name = "Juno-ocean";
+        theme.package = pkgs.juno-theme;
+        cursorTheme.name = "Phinger Cursors";
+        cursorTheme.package = pkgs.phinger-cursors;
         iconTheme.name = "Paper";
         iconTheme.package = pkgs.paper-icon-theme;
       };
@@ -68,7 +68,7 @@
   users.users = {
     abyss = {
       isNormalUser = true;
-      shell = pkgs.fish;
+      shell = pkgs.elvish;
       extraGroups =
         [ "wheel" "corectrl" "openrazer" "transmission" "libvirtd" "kvm" ];
       packages = with pkgs; [
@@ -78,6 +78,7 @@
         razergenie
         legendary-gl
         polymc
+        easytag
       ];
     };
   };
