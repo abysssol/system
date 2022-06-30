@@ -43,15 +43,14 @@
 
   environment = {
     homeBinInPath = true;
+    localBinInPath = true;
     shells = [ pkgs.bash pkgs.zsh pkgs.fish ];
     variables = {
-      VISUAL = "emacsclient -c -a ''";
-      EDITOR = "emacsclient -c -a ''";
-      MANPAGER = "sh -c 'col -bx | bat -pl man'";
       QT_QPA_PLATFORMTHEME = "lxqt";
       GDK_PIXBUF_MODULE_FILE =
         "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
     };
+
     systemPackages = with pkgs; [
       # cli
       llvmPackages_latest.clang
@@ -129,10 +128,7 @@
     git.enable = true;
     git.config = {
       init.defaultBranch = "master";
-      core = {
-        editor = "emacsclient -t -a ''";
-        askpass = "";
-      };
+      core.askpass = "";
     };
   };
 
