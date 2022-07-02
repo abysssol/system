@@ -70,6 +70,7 @@
       p7zip
       wasmer
       ncdu
+      yadm
 
       hunspell
       hunspellDicts.en_US
@@ -129,6 +130,7 @@
     git.config = {
       init.defaultBranch = "master";
       core.askpass = "";
+      core.editor = "nvim";
     };
   };
 
