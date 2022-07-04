@@ -78,7 +78,7 @@
         razergenie
         legendary-gl
         polymc
-        easytag
+        kid3
         ghc
         haskell-language-server
         haskellPackages.brittany
