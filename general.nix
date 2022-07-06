@@ -111,7 +111,7 @@
       taffybar
 
       # themes
-      juno-theme
+      flat-remix-gtk
       paper-icon-theme
       phinger-cursors
     ];
