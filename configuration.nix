@@ -47,22 +47,7 @@
     videoDrivers = [ "nvidia" ];
     wacom.enable = true;
     digimend.enable = true;
-
-    displayManager = {
-      defaultSession = "none+xmonad";
-      lightdm.extraSeatDefaults =
-        "greeter-setup-script=/run/current-system/sw/bin/numlockx";
-      lightdm.greeters.gtk = {
-        enable = true;
-        extraConfig = "background=/etc/nixos/background";
-        theme.name = "Flat-Remix-GTK-Blue-Darkest";
-        theme.package = pkgs.flat-remix-gtk;
-        cursorTheme.name = "Phinger Cursors";
-        cursorTheme.package = pkgs.phinger-cursors;
-        iconTheme.name = "Paper";
-        iconTheme.package = pkgs.paper-icon-theme;
-      };
-    };
+    displayManager.defaultSession = "none+xmonad";
   };
 
   users.users = {
@@ -78,7 +63,6 @@
         razergenie
         legendary-gl
         polymc
-        kid3
         ghc
         haskell-language-server
         haskellPackages.brittany

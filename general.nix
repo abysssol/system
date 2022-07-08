@@ -35,6 +35,22 @@
       };
 
       desktopManager.lxqt.enable = true;
+
+      displayManager = {
+        lightdm.extraSeatDefaults =
+          "greeter-setup-script=/run/current-system/sw/bin/numlockx";
+        lightdm.greeters.gtk = {
+          enable = true;
+          extraConfig = "background=/etc/nixos/background";
+          theme.name = "Flat-Remix-GTK-Blue-Darkest";
+          theme.package = pkgs.flat-remix-gtk;
+          cursorTheme.name = "phinger-cursors";
+          cursorTheme.package = pkgs.phinger-cursors;
+          cursorTheme.size = 32;
+          iconTheme.name = "Paper";
+          iconTheme.package = pkgs.paper-icon-theme;
+        };
+      };
     };
   };
 
@@ -45,8 +61,10 @@
   environment = {
     homeBinInPath = true;
     localBinInPath = true;
-    shells = [ pkgs.bash pkgs.zsh pkgs.fish ];
+    shells = [ pkgs.bash pkgs.fish ];
     variables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
       QT_QPA_PLATFORMTHEME = "lxqt";
       GDK_PIXBUF_MODULE_FILE =
         "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
@@ -98,17 +116,18 @@
       kiwix
       tor-browser-bundle-bin
       virt-manager
-      libreoffice
-      ghostwriter
       audacity
       blender
+      inkscape
       krita
       gimp
-      inkscape
+      ghostwriter
+      libreoffice
       obs-studio
       kdenlive
       godot
       taffybar
+      kid3
 
       # themes
       flat-remix-gtk
