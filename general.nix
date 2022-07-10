@@ -63,8 +63,6 @@
     localBinInPath = true;
     shells = [ pkgs.bash pkgs.fish ];
     variables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
       QT_QPA_PLATFORMTHEME = "lxqt";
       GDK_PIXBUF_MODULE_FILE =
         "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
