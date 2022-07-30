@@ -98,9 +98,16 @@
 
       exa
       bat
-      ripgrep
       fd
+      sd
+      ripgrep
+      choose
       procs
+      zenith
+      du-dust
+      zoxide
+      hexyl
+      broot
       tokei
       starship
 
@@ -139,7 +146,6 @@
     neovim.enable = true;
     slock.enable = true;
     less.enable = true;
-    htop.enable = true;
     corectrl.enable = true;
     dconf.enable = true;
     gnupg.agent.enable = true;
