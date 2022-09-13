@@ -1,79 +1,245 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# # Documentation is available with the following commands.
+# $ man configuration.nix
+# $ nixos-help
 
-{ config, pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
 
-{
-  imports = [ ./hardware-configuration.nix ./general.nix ];
-
-  # Allow specific unfree packages
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "nvidia-x11"
-      "nvidia-settings"
-      "steam"
-      "steam-original"
-      "steam-runtime"
-    ];
-
-  fileSystems."/".options = [ "compress-force=zstd" ];
-  fileSystems."/ext".options = [ "compress-force=zstd" ];
+let unstable = import <unstable> { };
+in {
+  imports = [ ./local-configuration.nix ./hardware-configuration.nix ];
 
   hardware = {
-    cpu.amd.updateMicrocode = true;
+    enableRedistributableFirmware = true;
     openrazer.enable = true;
     opentabletdriver.enable = true;
   };
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    timeout = 8;
-    systemd-boot = {
-      enable = true;
-      editor = false;
-      consoleMode = "max";
-    };
-  };
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.loader.timeout = 8;
 
-  time.timeZone = "America/New_York";
+  security.rtkit.enable = true;
 
-  networking = {
-    hostName = "krypton";
-    interfaces.enp7s0.useDHCP = true;
-  };
-
-  services.xserver = {
-    videoDrivers = [ "nvidia" ];
-    wacom.enable = true;
-    digimend.enable = true;
-    displayManager.defaultSession = "none+xmonad";
-  };
-
-  users.users = {
-    abyss = {
-      isNormalUser = true;
-      shell = pkgs.fish;
-      extraGroups =
-        [ "wheel" "corectrl" "openrazer" "transmission" "libvirtd" "kvm" ];
-      packages = with pkgs; [
-        rustup
-        rust-analyzer
-        mdbook
-        razergenie
-        legendary-gl
-        polymc
-        ghc
-        haskell-language-server
-        haskellPackages.brittany
-      ];
-    };
-  };
-
-  programs.steam = {
+  networking.nameservers =
+    [ "1.1.1.1" "2606:4700:4700::1111" "1.0.0.1" "2606:4700:4700::1001" ];
+  networking.networkmanager = {
     enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
+    wifi.backend = "iwd";
+    insertNameservers =
+      [ "1.1.1.1" "2606:4700:4700::1111" "1.0.0.1" "2606:4700:4700::1001" ];
+  };
+
+  services = {
+    emacs.enable = true;
+    emacs.package = pkgs.emacsNativeComp;
+    transmission.enable = true;
+
+    pipewire = {
+      enable = true;
+      wireplumber.enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
+
+    xserver = {
+      enable = true;
+      libinput.enable = true;
+      wacom.enable = true;
+      digimend.enable = true;
+
+      desktopManager.lxqt.enable = true;
+      windowManager.xmonad.enable = true;
+      windowManager.xmonad.enableContribAndExtras = true;
+
+      displayManager.defaultSession = "none+xmonad";
+      displayManager.lightdm.extraSeatDefaults =
+        "greeter-setup-script=/run/current-system/sw/bin/numlockx";
+      displayManager.lightdm.greeters.gtk = {
+        enable = true;
+        extraConfig = "background=/etc/nixos/background";
+        theme.name = "Flat-Remix-GTK-Blue-Darkest";
+        theme.package = pkgs.flat-remix-gtk;
+        cursorTheme.name = "phinger-cursors";
+        cursorTheme.size = 32;
+        cursorTheme.package = pkgs.phinger-cursors;
+        iconTheme.name = "Paper";
+        iconTheme.package = pkgs.paper-icon-theme;
+      };
+    };
+  };
+
+  environment = {
+    homeBinInPath = true;
+    localBinInPath = true;
+    shells = with pkgs; [ bash zsh fish elvish ];
+
+    variables = {
+      QT_QPA_PLATFORMTHEME = "lxqt";
+      GDK_PIXBUF_MODULE_FILE =
+        "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
+    };
+
+    systemPackages = with pkgs; [
+      # cli
+      curl
+      numlockx
+      xclip
+      xdotool
+      xorg.xprop
+      usbutils
+      lshw
+      alsa-utils
+      appimage-run
+      p7zip
+
+      yadm
+      tldr
+      neofetch
+      yt-dlp
+      pandoc
+      graphicsmagick
+      wineWowPackages.full
+      wasmer
+
+      llvmPackages_latest.clang
+      llvmPackages_latest.bintools
+      llvmPackages_latest.llvm
+      llvmPackages_latest.lldb
+
+      unstable.rustc
+      unstable.cargo
+      unstable.clippy
+      unstable.rust-analyzer
+      unstable.rustfmt
+
+      ghc
+      haskell-language-server
+      haskellPackages.brittany
+
+      hunspell
+      hunspellDicts.en_US
+      shellcheck
+      shfmt
+      nixfmt
+      nodePackages.prettier
+      nodePackages.yaml-language-server
+
+      unstable.helix
+      exa
+      zoxide
+      broot
+      bat
+      hexyl
+      ripgrep
+      fd
+      choose
+      sd
+      procs
+      zenith
+      du-dust
+      lfs
+      tokei
+      starship
+
+      # gui
+      alacritty
+      dmenu
+      taffybar
+      feh
+      mpv
+      vlc
+      firefox
+      unstable.tor-browser-bundle-bin
+      unstable.kiwix
+      virt-manager
+
+      audacity
+      lmms
+      ardour
+
+      unstable.synfigstudio
+      opentoonz
+      blender
+
+      inkscape
+      mypaint
+      krita
+      gimp
+
+      scribus
+      ghostwriter
+      libreoffice
+      vscodium
+
+      obs-studio
+      kdenlive
+      flowblade
+      godot
+      kid3
+
+      # themes
+      flat-remix-gtk
+      paper-icon-theme
+      phinger-cursors
+    ];
+  };
+
+  programs = {
+    fish.enable = true;
+    neovim.enable = true;
+    slock.enable = true;
+    less.enable = true;
+    nm-applet.enable = true;
+    corectrl.enable = true;
+    dconf.enable = true;
+    gnupg.agent.enable = true;
+    gnupg.agent.pinentryFlavor = "tty";
+
+    git.enable = true;
+    git.config = {
+      init.defaultBranch = "master";
+      core.askpass = "";
+      core.editor = "hx";
+    };
+
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+    };
+  };
+
+  users.users.root.shell = pkgs.fish;
+
+  gtk.iconCache.enable = true;
+
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+
+  fonts = {
+    enableDefaultFonts = true;
+    fontDir.enable = true;
+
+    fonts = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      (nerdfonts.override { fonts = [ "Hack" ]; })
+    ];
+
+    fontconfig = {
+      enable = true;
+      antialias = true;
+      hinting.enable = true;
+
+      defaultFonts = {
+        serif = [ "Noto Serif" ];
+        sansSerif = [ "Noto Sans" ];
+        emoji = [ "Noto Color Emoji" "Noto Emoji" "Noto Music" "FontAwesome" ];
+        monospace = [ "Hack Nerd Font" "Noto Sans Mono" ];
+      };
+    };
   };
 
   # Configure network proxy if necessary
