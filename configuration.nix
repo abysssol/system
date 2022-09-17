@@ -100,7 +100,7 @@ in {
       pandoc
       graphicsmagick
       wineWowPackages.full
-      wasmer
+      wasmtime
 
       llvmPackages_latest.clang
       llvmPackages_latest.bintools
