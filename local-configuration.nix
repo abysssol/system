@@ -43,6 +43,7 @@ in {
     hostName = "krypton";
     # All network interfaces should individually enable dhcp
     interfaces.enp7s0.useDHCP = true;
+    interfaces.wlan0.useDHCP = true;
   };
 
   # Change to correct time zone

@@ -17,8 +17,6 @@ in {
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.loader.timeout = 8;
 
-  security.rtkit.enable = true;
-
   networking.nameservers =
     [ "1.1.1.1" "2606:4700:4700::1111" "1.0.0.1" "2606:4700:4700::1001" ];
   networking.networkmanager = {
@@ -26,6 +24,13 @@ in {
     insertNameservers =
       [ "1.1.1.1" "2606:4700:4700::1111" "1.0.0.1" "2606:4700:4700::1001" ];
   };
+
+  security.rtkit.enable = true;
+  users.users.root.shell = pkgs.fish;
+  gtk.iconCache.enable = true;
+
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   services = {
     emacs.enable = true;
@@ -51,7 +56,6 @@ in {
       windowManager.xmonad.enable = true;
       windowManager.xmonad.enableContribAndExtras = true;
 
-      displayManager.defaultSession = "none+xmonad";
       displayManager.lightdm.extraSeatDefaults =
         "greeter-setup-script=/run/current-system/sw/bin/numlockx";
       displayManager.lightdm.greeters.gtk = {
@@ -84,13 +88,9 @@ in {
       curl
       numlockx
       xclip
-      xdotool
-      xorg.xprop
-      usbutils
-      lshw
-      alsa-utils
-      appimage-run
       p7zip
+      appimage-run
+      wasmtime
 
       yadm
       tldr
@@ -99,11 +99,9 @@ in {
       pandoc
       graphicsmagick
       wineWowPackages.full
-      wasmtime
 
       llvmPackages_latest.clang
       llvmPackages_latest.bintools
-      llvmPackages_latest.llvm
       llvmPackages_latest.lldb
 
       unstable.rustc
@@ -116,8 +114,6 @@ in {
       haskell-language-server
       haskellPackages.brittany
 
-      hunspell
-      hunspellDicts.en_US
       shellcheck
       shfmt
       nixfmt
@@ -208,13 +204,6 @@ in {
       dedicatedServer.openFirewall = true;
     };
   };
-
-  users.users.root.shell = pkgs.fish;
-
-  gtk.iconCache.enable = true;
-
-  virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
 
   fonts = {
     enableDefaultFonts = true;
