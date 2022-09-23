@@ -51,6 +51,7 @@ in {
       libinput.enable = true;
       wacom.enable = true;
       digimend.enable = true;
+      gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
       desktopManager.lxqt.enable = true;
       windowManager.xmonad.enable = true;
@@ -75,13 +76,8 @@ in {
   environment = {
     homeBinInPath = true;
     localBinInPath = true;
+    variables.QT_QPA_PLATFORMTHEME = "lxqt";
     shells = with pkgs; [ bash zsh fish elvish ];
-
-    variables = {
-      QT_QPA_PLATFORMTHEME = "lxqt";
-      GDK_PIXBUF_MODULE_FILE =
-        "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
-    };
 
     systemPackages = with pkgs; [
       # cli
@@ -99,6 +95,7 @@ in {
       pandoc
       graphicsmagick
       wineWowPackages.full
+      haskellPackages.status-notifier-item
 
       llvmPackages_latest.clang
       llvmPackages_latest.bintools
