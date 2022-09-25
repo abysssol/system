@@ -64,12 +64,14 @@ in {
         "kvm"
       ];
       packages = with pkgs; [
-        rustup
+        (rust-bin.stable.latest.default.override {
+          targets = [ "wasm32-unknown-unknown" "wasm32-wasi" ];
+        })
         bacon
         mdbook
         unstable.polychromatic
         unstable.polymc
-        legendary-gl
+        unstable.legendary-gl
       ];
     };
   };

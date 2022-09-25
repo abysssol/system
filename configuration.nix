@@ -2,10 +2,14 @@
 # $ man configuration.nix
 # $ nixos-help
 
-{ config, lib, pkgs, ... }:
+{ config, options, lib, pkgs, ... }:
 
 let unstable = import <unstable> { };
 in {
+  nixpkgs.overlays = [ (import <rust-overlay>) ];
+  nix.nixPath = options.nix.nixPath.default
+    ++ [ "nixpkgs-overlays=/etc/nixos/overlays/" ];
+
   imports = [ ./local-configuration.nix ./hardware-configuration.nix ];
 
   hardware = {
@@ -101,11 +105,8 @@ in {
       llvmPackages_latest.bintools
       llvmPackages_latest.lldb
 
-      unstable.rustc
-      unstable.cargo
-      unstable.clippy
       unstable.rust-analyzer
-      unstable.rustfmt
+      rust-bin.stable.latest.default
 
       ghc
       haskell-language-server
