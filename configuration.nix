@@ -21,12 +21,10 @@ in {
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.loader.timeout = 8;
 
-  networking.nameservers =
-    [ "1.1.1.1" "2606:4700:4700::1111" "1.0.0.1" "2606:4700:4700::1001" ];
-  networking.networkmanager = {
-    enable = true;
-    insertNameservers =
-      [ "1.1.1.1" "2606:4700:4700::1111" "1.0.0.1" "2606:4700:4700::1001" ];
+  networking = {
+    nameservers = [ "127.0.0.1" "::1" ];
+    dhcpcd.extraConfig = "nohook resolv.conf";
+    networkmanager.dns = "none";
   };
 
   security.rtkit.enable = true;
@@ -36,10 +34,72 @@ in {
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
+  systemd.services.update-blocklist = {
+    description = "Dns blocklist updater";
+    serviceConfig.Type = "simple";
+    startAt = [ "daily" ];
+    after = [ "network.target" ];
+    path = with pkgs; [ curl sd gzip ];
+    script = ''
+      echo "info: beginning blocklist update"
+
+      tmp_blocklist="$(mktemp /tmp/oisd-blocklist.XXXXXX)"
+      tmp_error="$(mktemp /tmp/curl-error.XXXXXX)"
+      failures=0
+
+      while ! curl -sSf "https://dblw.oisd.nl/" >"$tmp_blocklist" 2>"$tmp_error"; do
+        failures=$((failures + 1))
+
+        if [ "$failures" -gt 60 ]; then
+          echo "error: unable to download blocklist for one hour" >&2
+          echo "  -| $(cat "$tmp_error")" >&2
+          echo "debug: stopped after $failures download failures"
+          exit 1
+        fi
+
+        sleep 1m
+      done
+
+      if [ ! -s "$tmp_blocklist" ]; then
+        echo "error: downloaded blocklist is empty" >&2
+        echo "debug: stopped with $failures download failures"
+        exit 1
+      fi
+
+      sd "^\*\." "" "$tmp_blocklist"
+      mkdir -p "/etc/nixos/blocklist-history/"
+      gzip -9c "$tmp_blocklist" >"/etc/nixos/blocklist-history/blocklist.$(date +%F.%T).gz"
+      cp "$tmp_blocklist" "/etc/nixos/blocklist"
+      chmod 644 "/etc/nixos/blocklist"
+
+      echo "info: successfully updated blocklist"
+      echo "debug: finished with $failures download failures"
+    '';
+  };
+
   services = {
     emacs.enable = true;
     emacs.package = pkgs.emacsNativeComp;
     transmission.enable = true;
+
+    dnscrypt-proxy2.enable = true;
+    dnscrypt-proxy2.settings = {
+      dnscrypt_servers = true;
+      require_dnssec = true;
+      require_nolog = true;
+      require_nofilter = true;
+      blocked_names.blocked_names_file = "/etc/nixos/blocklist";
+
+      sources.public-resolvers = {
+        cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
+        minisign_key =
+          "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+        urls = [
+          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
+          "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
+        ];
+      };
+    };
 
     pipewire = {
       enable = true;
@@ -81,7 +141,7 @@ in {
     homeBinInPath = true;
     localBinInPath = true;
     variables.QT_QPA_PLATFORMTHEME = "lxqt";
-    shells = with pkgs; [ bash zsh fish elvish ];
+    shells = [ pkgs.fish ];
 
     systemPackages = with pkgs; [
       # cli
@@ -138,14 +198,15 @@ in {
       # gui
       alacritty
       dmenu
-      taffybar
       feh
       mpv
       vlc
       firefox
+      librewolf
       unstable.tor-browser-bundle-bin
       unstable.kiwix
       virt-manager
+      taffybar
 
       audacity
       lmms

@@ -41,13 +41,23 @@ in {
   networking = {
     # Change to a unique name
     hostName = "krypton";
+    # Enable networkmanager for wifi support, or disable for ethernet only
+    networkmanager.enable = true;
     # All network interfaces should individually enable dhcp
     interfaces.enp7s0.useDHCP = true;
     interfaces.wlan0.useDHCP = true;
   };
 
+  # Only enable ipv6 dns servers if your router and internet service provider support ipv6
+  services.dnscrypt-proxy2.settings.ipv6_servers = false;
+
   # Change to correct time zone
   time.timeZone = "America/New_York";
+
+  # Change keyboard properties
+  i18n.defaultLocale = "en_US.UTF-8";
+  console.useXkbConfig = true;
+  services.xserver.xkbOptions = "caps:escape";
 
   # Create list of desired users
   users.users = {
