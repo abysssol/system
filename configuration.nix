@@ -151,6 +151,7 @@ in {
       p7zip
       appimage-run
       wasmtime
+      unclutter-xfixes
 
       yadm
       tldr
