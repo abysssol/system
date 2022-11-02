@@ -34,6 +34,7 @@ in {
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
+  systemd.timers.update-blocklist.timerConfig.Persistent = "true";
   systemd.services.update-blocklist = {
     description = "Dns blocklist updater";
     serviceConfig.Type = "simple";
