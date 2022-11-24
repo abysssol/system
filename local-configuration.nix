@@ -79,8 +79,8 @@ in {
         })
         bacon
         mdbook
-        unstable.polychromatic
-        unstable.polymc
+        razergenie
+        unstable.prismlauncher
         unstable.legendary-gl
       ];
     };
