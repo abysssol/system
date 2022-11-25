@@ -52,6 +52,7 @@ in {
         failures=$((failures + 1))
 
         if [ "$failures" -gt 60 ]; then
+          rm $tmp_blocklist
           echo "error: unable to download blocklist for one hour" >&2
           echo "  -| $(cat "$tmp_error")" >&2
           echo "debug: stopped after $failures download failures"
@@ -62,6 +63,7 @@ in {
       done
 
       if [ ! -s "$tmp_blocklist" ]; then
+        rm $tmp_blocklist
         echo "error: downloaded blocklist is empty" >&2
         echo "debug: stopped with $failures download failures"
         exit 1
@@ -72,6 +74,7 @@ in {
       gzip -9c "$tmp_blocklist" >"/etc/nixos/blocklist-history/blocklist.$(date +%F.%T).gz"
       cp "$tmp_blocklist" "/etc/nixos/blocklist"
       chmod 644 "/etc/nixos/blocklist"
+      rm $tmp_blocklist
 
       echo "info: successfully updated blocklist"
       echo "debug: finished with $failures download failures"
@@ -214,7 +217,7 @@ in {
       lmms
       ardour
 
-      unstable.synfigstudio
+      #unstable.synfigstudio
       opentoonz
       blender
 
