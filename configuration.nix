@@ -5,7 +5,8 @@
 { config, options, lib, pkgs, ... }:
 
 let unstable = import <unstable> { };
-in {
+in
+{
   nixpkgs.overlays = [ (import <rust-overlay>) ];
   nix.nixPath = options.nix.nixPath.default
     ++ [ "nixpkgs-overlays=/etc/nixos/overlays/" ];
@@ -83,8 +84,8 @@ in {
 
   services = {
     emacs.enable = true;
-    emacs.package = pkgs.emacsNativeComp;
     transmission.enable = true;
+    nscd.enableNsncd = true;
 
     dnscrypt-proxy2.enable = true;
     dnscrypt-proxy2.settings = {
@@ -175,12 +176,10 @@ in {
 
       ghc
       haskell-language-server
-      haskellPackages.brittany
 
       shellcheck
       shfmt
-      nixfmt
-      nodePackages.prettier
+      rnix-lsp
       nodePackages.yaml-language-server
 
       unstable.helix
@@ -204,27 +203,30 @@ in {
       alacritty
       dmenu
       feh
+      virt-manager
+      taffybar
+      kid3
+
       mpv
       vlc
+
       firefox
       librewolf
       unstable.tor-browser-bundle-bin
-      unstable.kiwix
-      virt-manager
-      taffybar
+      kiwix
 
       audacity
       lmms
       ardour
 
-      #unstable.synfigstudio
-      opentoonz
+      godot
       blender
-
+      synfigstudio
       inkscape
       mypaint
       krita
       gimp
+      darktable
 
       scribus
       ghostwriter
@@ -234,8 +236,6 @@ in {
       obs-studio
       kdenlive
       flowblade
-      godot
-      kid3
 
       # themes
       flat-remix-gtk

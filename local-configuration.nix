@@ -4,19 +4,17 @@
 { config, lib, pkgs, ... }:
 
 let unstable = import <unstable> { };
-in {
+in
+{
   # Allow specific unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "nvidia-x11"
       "nvidia-settings"
       "steam"
+      "steam-run"
       "steam-original"
-      "steam-runtime"
     ];
-
-  # Allow insecure package (opentoonz dependency)
-  nixpkgs.config.permittedInsecurePackages = [ "libtiff-4.0.3-opentoonz" ];
 
   # Unfree nvidia gpu drivers (nvidia only)
   services.xserver.videoDrivers = [ "nvidia" ];
