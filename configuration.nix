@@ -25,7 +25,6 @@ in
   networking = {
     nameservers = [ "127.0.0.1" "::1" ];
     dhcpcd.extraConfig = "nohook resolv.conf";
-    networkmanager.dns = "none";
   };
 
   security.rtkit.enable = true;
@@ -49,7 +48,7 @@ in
       tmp_error="$(mktemp /tmp/curl-error.XXXXXX)"
       failures=0
 
-      while ! curl -sSf "https://dblw.oisd.nl/" >"$tmp_blocklist" 2>"$tmp_error"; do
+      while ! curl -sSf "https://unbound.oisd.nl/" >"$tmp_blocklist" 2>"$tmp_error"; do
         failures=$((failures + 1))
 
         if [ "$failures" -gt 60 ]; then
@@ -86,25 +85,7 @@ in
     emacs.enable = true;
     transmission.enable = true;
     nscd.enableNsncd = true;
-
-    dnscrypt-proxy2.enable = true;
-    dnscrypt-proxy2.settings = {
-      dnscrypt_servers = true;
-      require_dnssec = true;
-      require_nolog = true;
-      require_nofilter = true;
-      blocked_names.blocked_names_file = "/etc/nixos/blocklist";
-
-      sources.public-resolvers = {
-        cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
-        minisign_key =
-          "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
-        urls = [
-          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
-          "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
-        ];
-      };
-    };
+    unbound.enable = true;
 
     pipewire = {
       enable = true;

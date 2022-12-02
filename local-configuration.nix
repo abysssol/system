@@ -46,8 +46,11 @@ in
     interfaces.wlan0.useDHCP = true;
   };
 
-  # Only enable ipv6 dns servers if your router and internet service provider support ipv6
-  services.dnscrypt-proxy2.settings.ipv6_servers = false;
+  # Include a blocklist to prevent connecting to ads, spam, malware, etc.
+  # Comment out if it imapcts dns resolution performance significantly
+  services.unbound.settings = {
+    include = "/etc/nixos/blocklist";
+  };
 
   # Change to correct time zone
   time.timeZone = "America/New_York";
