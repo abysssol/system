@@ -86,6 +86,19 @@ in
     transmission.enable = true;
     nscd.enableNsncd = true;
     unbound.enable = true;
+    unbound.settings = {
+      forward-zone = [
+        {
+          name = ".";
+          forward-addr = [
+            "1.1.1.1@853#cloudflare-dns.com"
+            "1.0.0.1@853#cloudflare-dns.com"
+          ];
+          forward-tls-upstream = true;
+          forward-first = true;
+        }
+      ];
+    };
 
     pipewire = {
       enable = true;
