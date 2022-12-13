@@ -168,12 +168,11 @@ in
       unstable.rust-analyzer
       rust-bin.stable.latest.default
 
-      ghc
-      haskell-language-server
-
       shellcheck
       shfmt
-      rnix-lsp
+      nil
+      ghc
+      haskell-language-server
       nodePackages.yaml-language-server
 
       unstable.helix
