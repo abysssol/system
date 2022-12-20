@@ -10,6 +10,7 @@ in
   nixpkgs.overlays = [ (import <rust-overlay>) ];
   nix.nixPath = options.nix.nixPath.default
     ++ [ "nixpkgs-overlays=/etc/nixos/overlays/" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports = [ ./local-configuration.nix ./hardware-configuration.nix ];
 
