@@ -82,6 +82,8 @@ in
         mdbook
         razergenie
         unstable.prismlauncher
+        unstable.heroic
+        unstable.gogdl
         unstable.legendary-gl
       ];
     };
