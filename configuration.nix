@@ -20,17 +20,15 @@ in
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.loader.timeout = 8;
 
-  networking = {
-    nameservers = [ "127.0.0.1" "::1" ];
-    dhcpcd.extraConfig = "nohook resolv.conf";
-  };
+  networking.nameservers = [ "127.0.0.1" "::1" ];
+  networking.dhcpcd.extraConfig = "nohook resolv.conf";
+
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   security.rtkit.enable = true;
   users.users.root.shell = pkgs.fish;
   gtk.iconCache.enable = true;
-
-  virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
 
   systemd.timers.update-blocklist.timerConfig.Persistent = "true";
   systemd.services.update-blocklist = {
@@ -116,6 +114,7 @@ in
       gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
       desktopManager.lxqt.enable = true;
+
       windowManager.xmonad.enable = true;
       windowManager.xmonad.enableContribAndExtras = true;
 
@@ -287,28 +286,4 @@ in
       };
     };
   };
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.05"; # Did you read the comment?
 }
