@@ -14,11 +14,8 @@ in
 
   imports = [ ./local-configuration.nix ./hardware-configuration.nix ];
 
-  hardware = {
-    enableRedistributableFirmware = true;
-    openrazer.enable = true;
-    opentabletdriver.enable = true;
-  };
+  hardware.enableRedistributableFirmware = true;
+  hardware.opentabletdriver.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.loader.timeout = 8;
@@ -83,6 +80,7 @@ in
   };
 
   services = {
+    hardware.openrgb.enable = true;
     emacs.enable = true;
     transmission.enable = true;
     nscd.enableNsncd = true;
