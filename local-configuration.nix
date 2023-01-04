@@ -9,15 +9,10 @@ in
   # Allow specific unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
-      "nvidia-x11"
-      "nvidia-settings"
       "steam"
       "steam-run"
       "steam-original"
     ];
-
-  # Unfree nvidia gpu drivers (nvidia only)
-  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Compress all files transparently (btrfs only)
   fileSystems."/".options = [ "compress-force=zstd" ];
