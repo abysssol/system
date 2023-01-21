@@ -43,9 +43,6 @@ in
     hostName = "krypton";
     # Enable networkmanager for wifi support, or disable for ethernet only
     networkmanager.enable = true;
-    # All network interfaces should individually enable dhcp
-    interfaces.enp7s0.useDHCP = true;
-    interfaces.wlan0.useDHCP = true;
   };
 
   # Include a blocklist to prevent connecting to ads, spam, malware, etc.
