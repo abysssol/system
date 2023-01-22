@@ -40,7 +40,7 @@ in
 
   networking = {
     # Change to a unique name
-    hostName = "krypton";
+    hostName = "tungsten";
     # Enable networkmanager for wifi support, or disable for ethernet only
     networkmanager.enable = true;
   };
@@ -64,7 +64,7 @@ in
 
   # Create list of desired users
   users.users = {
-    abyss = {
+    abysssol = {
       isNormalUser = true;
       shell = pkgs.fish;
       extraGroups = [
@@ -113,5 +113,5 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.05"; # Did you read the comment?
+  system.stateVersion = "22.11"; # Did you read the comment?
 }
