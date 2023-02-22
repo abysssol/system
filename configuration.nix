@@ -18,6 +18,7 @@ in
     enableRedistributableFirmware = true;
     openrazer.enable = true;
     opentabletdriver.enable = true;
+    opengl.enable = true;
   };
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -32,6 +33,9 @@ in
   security.rtkit.enable = true;
   users.users.root.shell = pkgs.fish;
   gtk.iconCache.enable = true;
+
+  qt5.enable = true;
+  qt5.platformTheme = "lxqt";
 
   systemd.timers.update-blocklist.timerConfig.Persistent = "true";
   systemd.services.update-blocklist = {
@@ -139,18 +143,22 @@ in
   environment = {
     homeBinInPath = true;
     localBinInPath = true;
-    variables.QT_QPA_PLATFORMTHEME = "lxqt";
     shells = [ pkgs.fish ];
+
+    etc = {
+      "pam.d/swaylock".text = "auth include login";
+    };
 
     systemPackages = with pkgs; [
       # cli
       curl
-      numlockx
-      xclip
       p7zip
       appimage-run
       wasmtime
+      numlockx
       unclutter-xfixes
+      xclip
+      wl-clipboard
 
       yadm
       tldr
@@ -201,13 +209,15 @@ in
       virt-manager
       taffybar
       kid3
+      sway
+      swaylock
 
       mpv
       vlc
 
       firefox
       librewolf
-      unstable.tor-browser-bundle-bin
+      (unstable.tor-browser-bundle-bin.override { useHardenedMalloc = false; })
       kiwix
 
       audacity
@@ -247,6 +257,7 @@ in
     nm-applet.enable = true;
     corectrl.enable = true;
     dconf.enable = true;
+
     gnupg.agent.enable = true;
     gnupg.agent.pinentryFlavor = "tty";
 
