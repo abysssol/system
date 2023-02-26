@@ -2,17 +2,10 @@
 # $ man configuration.nix
 # $ nixos-help
 
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, unstable, flakes, hostname, ... }:
 
-let unstable = import <unstable> { };
-in
 {
-  nixpkgs.overlays = [ (import <rust-overlay>) ];
-  nix.nixPath = options.nix.nixPath.default
-    ++ [ "nixpkgs-overlays=/etc/nixos/overlays/" ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  imports = [ ./local-configuration.nix ./hardware-configuration.nix ];
 
   hardware = {
     enableRedistributableFirmware = true;
@@ -24,8 +17,11 @@ in
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.loader.timeout = 8;
 
-  networking.nameservers = [ "127.0.0.1" "::1" ];
-  networking.dhcpcd.extraConfig = "nohook resolv.conf";
+  networking = {
+    hostName = hostname;
+    nameservers = [ "127.0.0.1" "::1" ];
+    dhcpcd.extraConfig = "nohook resolv.conf";
+  };
 
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
@@ -90,17 +86,14 @@ in
     nscd.enableNsncd = true;
     unbound.enable = true;
     unbound.settings = {
-      forward-zone = [
-        {
-          name = ".";
-          forward-addr = [
-            "1.1.1.1@853#cloudflare-dns.com"
-            "1.0.0.1@853#cloudflare-dns.com"
-          ];
-          forward-tls-upstream = true;
-          forward-first = true;
-        }
-      ];
+      forward-zone = [{
+        name = ".";
+        forward-addr =
+          [ "1.1.1.1@853#cloudflare-dns.com" "1.0.0.1@853#cloudflare-dns.com" ];
+        forward-tls-upstream = true;
+        forward-first = true;
+      }];
+    };
     };
 
     pipewire = {
@@ -149,14 +142,20 @@ in
       "pam.d/swaylock".text = "auth include login";
     };
 
+    defaultPackages = [ ];
     systemPackages = with pkgs; [
       # cli
+      nano
+      perl
+      rsync
+      strace
       curl
+      zip
+      unzip
       p7zip
       appimage-run
       wasmtime
       numlockx
-      unclutter-xfixes
       xclip
       wl-clipboard
 
@@ -168,13 +167,15 @@ in
       graphicsmagick
       wineWowPackages.full
       haskellPackages.status-notifier-item
+      unstable.gogdl
+      unstable.legendary-gl
 
       llvmPackages_latest.clang
       llvmPackages_latest.bintools
       llvmPackages_latest.lldb
 
       unstable.rust-analyzer
-      rust-bin.stable.latest.default
+      flakes.rust
 
       shellcheck
       shfmt
@@ -195,12 +196,16 @@ in
       fd
       choose
       sd
+      mprocs
       procs
       zenith
       du-dust
       lfs
       tokei
       starship
+      zellij
+      gitui
+      flakes.dmm
 
       # gui
       alacritty
@@ -217,8 +222,11 @@ in
 
       firefox
       librewolf
-      (unstable.tor-browser-bundle-bin.override { useHardenedMalloc = false; })
+      unstable.tor-browser-bundle-bin
       kiwix
+
+      unstable.prismlauncher
+      unstable.heroic
 
       audacity
       lmms

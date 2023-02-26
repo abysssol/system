@@ -1,10 +1,8 @@
 # Important config, machine-specific
 # Look over on new machine
 
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, flakes, ... }:
 
-let unstable = import <unstable> { };
-in
 {
   # Allow specific unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg:
@@ -38,18 +36,12 @@ in
   #  device = "/dev/disk/by-label/boot";
   #};
 
-  networking = {
-    # Change to a unique name
-    hostName = "tungsten";
-    # Enable networkmanager for wifi support, or disable for ethernet only
-    networkmanager.enable = true;
-  };
+  # Enable networkmanager for wifi support, or disable for ethernet only
+  networking.networkmanager.enable = true;
 
   # Include a blocklist to prevent connecting to ads, spam, malware, etc.
   # Comment out if it imapcts dns resolution performance significantly
-  services.unbound.settings = {
-    include = "/etc/nixos/blocklist";
-  };
+  services.unbound.settings = { include = "/etc/nixos/blocklist"; };
 
   # Change to correct time zone
   time.timeZone = "America/New_York";
@@ -77,35 +69,15 @@ in
         "kvm"
       ];
       packages = with pkgs; [
-        (rust-bin.stable.latest.default.override {
+        (flakes.rust.override {
           targets = [ "wasm32-unknown-unknown" "wasm32-wasi" ];
         })
         bacon
         mdbook
         razergenie
-        unstable.prismlauncher
-        unstable.heroic
-        unstable.gogdl
-        unstable.legendary-gl
       ];
     };
   };
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
