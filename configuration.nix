@@ -2,7 +2,7 @@
 # $ man configuration.nix
 # $ nixos-help
 
-{ config, options, lib, pkgs, unstable, flakes, hostname, ... }:
+{ config, options, lib, hostname, pkgs, unstable, flakes, ... }:
 
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -162,7 +162,7 @@
       yadm
       tldr
       neofetch
-      yt-dlp
+      unstable.yt-dlp
       pandoc
       graphicsmagick
       wineWowPackages.full
