@@ -5,13 +5,13 @@
 
     rust = {
       url = "github:oxalica/rust-overlay";
-      inputs = { nixpkgs.follows = "nixpkgs"; };
+      inputs = { nixpkgs.follows = "nixpkgs-unstable"; };
     };
 
     dmm = {
       url = "github:abysssol/dmm";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-unstable";
         rust.follows = "rust";
       };
     };
@@ -21,11 +21,13 @@
     let
       system = "x86_64-linux";
       hostname = "tungsten";
+      flakePkgs = { inherit rust dmm; };
+
       pkgs = import nixpkgs { inherit system; };
       unstable = import nixpkgs-unstable { inherit system; };
 
       defaultPackage = name: value: value.packages.${system}.default;
-      flakes = pkgs.lib.attrsets.mapAttrs defaultPackage { inherit rust dmm; };
+      flakes = pkgs.lib.attrsets.mapAttrs defaultPackage flakePkgs;
     in {
       nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
         inherit system;
