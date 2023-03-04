@@ -2,10 +2,12 @@
 # $ man configuration.nix
 # $ nixos-help
 
-{ config, options, lib, hostname, pkgs, unstable, flakes, ... }:
+{ config, options, lib, hostname, pkgs, stable, unstable, flakes, ... }:
 
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  nixpkgs.pkgs = stable;
 
   hardware = {
     enableRedistributableFirmware = true;

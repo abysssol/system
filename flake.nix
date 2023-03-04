@@ -25,19 +25,33 @@
 
   outputs = { self, nixos, nixpkgs, rust, dmm, ... }:
     let
+      lib = nixpkgs.lib;
+
       system = "x86_64-linux";
       hostname = "tungsten";
 
-      flakePkgs = { inherit rust dmm; };
-      nixpkgsConfig = { inherit system; };
+      nixpkgsConfig = {
+        inherit system;
+        # Allow specific unfree packages
+        config.allowUnfreePredicate = pkg:
+          builtins.elem (lib.getName pkg) [
+            "steam"
+            "steam-run"
+            "steam-original"
+            # These are required to enable unfree nvidia drivers
+            "nvidia-x11"
+            "nvidia-settings"
+          ];
+      };
 
-      pkgs = import nixos nixpkgsConfig;
+      stable = import nixos nixpkgsConfig;
       unstable = import nixpkgs nixpkgsConfig;
 
+      flakePkgs = { inherit rust dmm; };
       defaultPackage = name: value: value.packages.${system}.default;
-      flakes = pkgs.lib.attrsets.mapAttrs defaultPackage flakePkgs;
+      flakes = lib.attrsets.mapAttrs defaultPackage flakePkgs;
 
-      specialArgs = { inherit system hostname unstable flakes; };
+      specialArgs = { inherit system hostname stable unstable flakes; };
     in {
       nixosConfigurations.${hostname} = nixos.lib.nixosSystem {
         inherit system specialArgs;

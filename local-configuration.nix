@@ -1,21 +1,9 @@
 # Important config, machine-specific
 # Look over on new machine
 
-{ lib, pkgs, flakes, ... }:
+{ pkgs, flakes, ... }:
 
 {
-  # Allow specific unfree packages
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "steam"
-      "steam-run"
-      "steam-original"
-
-      # If unfree nvidia drivers are enabled, these are required
-      #"nvidia-x11"
-      #"nvidia-settings"
-    ];
-
   # Enable the unfree nvidia gpu drivers if necessary
   #services.xserver.videoDrivers = [ "nvidia" ];
 
