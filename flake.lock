@@ -51,12 +51,14 @@
         "advisory-db": "advisory-db",
         "crane": "crane",
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ],
         "rust": [
           "rust"
         ],
-        "utils": "utils"
+        "utils": [
+          "utils"
+        ]
       },
       "locked": {
         "lastModified": 1677687421,
@@ -88,22 +90,7 @@
         "type": "github"
       }
     },
-    "flake-utils": {
-      "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "nixpkgs": {
+    "nixos": {
       "locked": {
         "lastModified": 1677934965,
         "narHash": "sha256-d1RDygB34BBUIrWw9m2A0wYq3ktWXQmI6LndU8TeK1M=",
@@ -119,7 +106,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-unstable": {
+    "nixpkgs": {
       "locked": {
         "lastModified": 1677852945,
         "narHash": "sha256-liiVJjkBTuBTAkRW3hrI8MbPD2ImYzwUpa7kvteiKhM=",
@@ -138,16 +125,19 @@
     "root": {
       "inputs": {
         "dmm": "dmm",
+        "nixos": "nixos",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable",
-        "rust": "rust"
+        "rust": "rust",
+        "utils": "utils"
       }
     },
     "rust": {
       "inputs": {
-        "flake-utils": "flake-utils",
+        "flake-utils": [
+          "utils"
+        ],
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
