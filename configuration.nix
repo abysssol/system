@@ -94,7 +94,6 @@
         forward-first = true;
       }];
     };
-    };
 
     pipewire = {
       enable = true;
