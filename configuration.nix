@@ -145,10 +145,6 @@
     localBinInPath = true;
     shells = [ pkgs.fish ];
 
-    etc = {
-      "pam.d/swaylock".text = "auth include login";
-    };
-
     defaultPackages = [ ];
     systemPackages = with pkgs; [
       # cli
@@ -221,7 +217,6 @@
       virt-manager
       taffybar
       kid3
-      sway
       swaylock
 
       mpv
@@ -275,6 +270,12 @@
 
     gnupg.agent.enable = true;
     gnupg.agent.pinentryFlavor = "tty";
+
+    sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+      extraPackages = [];
+    };
 
     git.enable = true;
     git.config = {
