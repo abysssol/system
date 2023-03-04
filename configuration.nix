@@ -161,7 +161,7 @@
       yadm
       tldr
       neofetch
-      unstable.yt-dlp
+      yt-dlp
       pandoc
       graphicsmagick
       wineWowPackages.full
