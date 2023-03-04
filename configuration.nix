@@ -32,6 +32,12 @@
   users.users.root.shell = pkgs.fish;
   gtk.iconCache.enable = true;
 
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    lxqt.enable = true;
+  };
+
   qt5.enable = true;
   qt5.platformTheme = "lxqt";
 
