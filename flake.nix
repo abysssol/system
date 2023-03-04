@@ -21,10 +21,12 @@
     let
       system = "x86_64-linux";
       hostname = "tungsten";
-      flakePkgs = { inherit rust dmm; };
 
-      pkgs = import nixpkgs { inherit system; };
-      unstable = import nixpkgs-unstable { inherit system; };
+      flakePkgs = { inherit rust dmm; };
+      nixpkgsConfig = { inherit system; };
+
+      pkgs = import nixpkgs nixpkgsConfig;
+      unstable = import nixpkgs-unstable nixpkgsConfig;
 
       defaultPackage = name: value: value.packages.${system}.default;
       flakes = pkgs.lib.attrsets.mapAttrs defaultPackage flakePkgs;
