@@ -39,9 +39,6 @@
   console.useXkbConfig = true;
   services.xserver.xkbOptions = "caps:escape";
 
-  # Light control integration for motherboards. Either "amd" or "intel".
-  services.hardware.openrgb.motherboard = "amd";
-
   # Create list of desired users
   users.users = {
     abysssol = {
