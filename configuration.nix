@@ -193,7 +193,6 @@
       nixpkgs-fmt
       ghc
       haskell-language-server
-      taplo
       nodePackages.yaml-language-server
 
       unstable.helix
