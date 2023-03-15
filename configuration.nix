@@ -238,7 +238,6 @@
 
       audacity
       lmms
-      ardour
 
       godot
       blender
