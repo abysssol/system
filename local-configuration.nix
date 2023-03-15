@@ -52,6 +52,8 @@
         "transmission"
         "libvirtd"
         "kvm"
+        "video"
+        "render"
       ];
       packages = with pkgs; [
         (flakes.rust.override {
