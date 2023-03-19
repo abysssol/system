@@ -7,6 +7,12 @@
   # Enable the unfree nvidia gpu drivers if necessary
   #services.xserver.videoDrivers = [ "nvidia" ];
 
+  # Support rocm for amd gpus
+  opengl.extraPackages = with pkgs; [
+    rocm-opencl-icd
+    rocm-opencl-runtime
+  ];
+
   # Compress all files transparently (btrfs only)
   fileSystems."/".options = [ "compress-force=zstd" ];
   # External hard drive
