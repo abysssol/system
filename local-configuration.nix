@@ -8,7 +8,7 @@
   #services.xserver.videoDrivers = [ "nvidia" ];
 
   # Support rocm for amd gpus
-  opengl.extraPackages = with pkgs; [
+  hardware.opengl.extraPackages = with pkgs; [
     rocm-opencl-icd
     rocm-opencl-runtime
   ];
