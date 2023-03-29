@@ -2,7 +2,8 @@
 # $ man configuration.nix
 # $ nixos-help
 
-{ config, options, lib, hostname, pkgs, stable, unstable, flakes, ... }:
+{ config, options, lib, hostname, pkgs, stable, unstable, flakes, blocklist, ...
+}:
 
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -54,44 +55,49 @@
     serviceConfig.Type = "simple";
     startAt = [ "daily" ];
     after = [ "network.target" ];
-    path = with pkgs; [ curl sd gzip ];
+    path = with pkgs; [ curl gzip ];
     script = ''
-      echo "info: beginning blocklist update"
-
-      tmp_blocklist="$(mktemp /tmp/oisd-blocklist.XXXXXX)"
-      tmp_error="$(mktemp /tmp/curl-error.XXXXXX)"
+      blocklist_url="https://big.oisd.nl/unbound"
+      max_failures=20
       failures=0
+      blocklist="$(mktemp /tmp/blocklist.XXXXXXX)"
+      error="$(mktemp /tmp/curl-error.XXXXXXX)"
+      clean-exit () {
+        echo "info: encountered $failures download failures"
+        rm "$blocklist"
+        rm "$error"
+        exit $1
+      }
 
-      while ! curl -sSf "https://unbound.oisd.nl/" >"$tmp_blocklist" 2>"$tmp_error"; do
+      echo "info: updating blocklist"
+
+      while ! curl -sSf $blocklist_url >"$blocklist" 2>"$error"; do
         failures=$((failures + 1))
+        echo "error: unable to download blocklist" >&2
+        echo "  -| $(cat "$error")" >&2
 
-        if [ "$failures" -gt 60 ]; then
-          rm $tmp_blocklist
-          echo "error: unable to download blocklist for one hour" >&2
-          echo "  -| $(cat "$tmp_error")" >&2
-          echo "debug: stopped after $failures download failures"
-          exit 1
+        if [ "$failures" -gt $max_failures ]; then
+          echo "error: maximum download failures encountered" >&2
+          clean-exit 1
         fi
 
-        sleep 1m
+        sleep $((failures * failures))
       done
 
-      if [ ! -s "$tmp_blocklist" ]; then
-        rm $tmp_blocklist
+      if [ ! -s "$blocklist" ]; then
         echo "error: downloaded blocklist is empty" >&2
-        echo "debug: stopped with $failures download failures"
-        exit 1
+        clean-exit 1
       fi
 
-      sd "^\*\." "" "$tmp_blocklist"
-      mkdir -p "/etc/nixos/blocklist-history/"
-      gzip -9c "$tmp_blocklist" >"/etc/nixos/blocklist-history/blocklist.$(date +%F.%T).gz"
-      cp "$tmp_blocklist" "/etc/nixos/blocklist"
-      chmod 644 "/etc/nixos/blocklist"
-      rm $tmp_blocklist
+      if [ ! -e "/etc/unbound/blocklist.bak" ]; then
+        mv "/etc/unbound/blocklist" "/etc/unbound/blocklist.bak"
+      fi
+
+      cp "$blocklist" "/etc/unbound/blocklist"
+      chmod 644 "/etc/unbound/blocklist"
 
       echo "info: successfully updated blocklist"
-      echo "debug: finished with $failures download failures"
+      clean-exit 0
     '';
   };
 
@@ -151,6 +157,8 @@
     homeBinInPath = true;
     localBinInPath = true;
     shells = [ pkgs.fish ];
+
+    etc."unbound/blocklist".source = blocklist;
 
     defaultPackages = [ ];
     systemPackages = with pkgs; [
@@ -279,7 +287,7 @@
     sway = {
       enable = true;
       wrapperFeatures.gtk = true;
-      extraPackages = [];
+      extraPackages = [ ];
     };
 
     git.enable = true;

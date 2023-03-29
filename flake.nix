@@ -21,9 +21,14 @@
         rust.follows = "rust";
       };
     };
+
+    blocklist = {
+      url = "https://big.oisd.nl/unbound";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixos, nixpkgs, rust, dmm, ... }:
+  outputs = { self, nixos, nixpkgs, rust, dmm, blocklist, ... }:
     let
       lib = nixpkgs.lib;
 
@@ -51,7 +56,9 @@
       defaultPackage = name: value: value.packages.${system}.default;
       flakes = lib.attrsets.mapAttrs defaultPackage flakePkgs;
 
-      specialArgs = { inherit system hostname stable unstable flakes; };
+      specialArgs = {
+        inherit system hostname stable unstable flakes blocklist;
+      };
     in {
       nixosConfigurations.${hostname} = nixos.lib.nixosSystem {
         inherit system specialArgs;

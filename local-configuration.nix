@@ -35,7 +35,7 @@
 
   # Include a blocklist to prevent connecting to ads, spam, malware, etc.
   # Comment out if it imapcts dns resolution performance significantly
-  services.unbound.settings = { include = "/etc/nixos/blocklist"; };
+  services.unbound.settings = { include = "/etc/unbound/blocklist"; };
 
   # Change to correct time zone
   time.timeZone = "America/New_York";
