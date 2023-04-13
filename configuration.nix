@@ -176,6 +176,7 @@
       numlockx
       xclip
       wl-clipboard
+      man-pages
 
       yadm
       tldr
