@@ -164,7 +164,6 @@
     defaultPackages = [ ];
     systemPackages = with pkgs; [
       # cli
-      nano
       perl
       rsync
       strace
@@ -215,14 +214,12 @@
       fd
       choose
       sd
-      mprocs
       procs
       zenith
       du-dust
       lfs
       tokei
       starship
-      zellij
       gitui
       flakes.dmm
 
@@ -234,7 +231,6 @@
       taffybar
       kid3
       swaylock
-
       mpv
       vlc
 
@@ -261,7 +257,6 @@
       scribus
       ghostwriter
       libreoffice
-      vscodium
 
       obs-studio
       kdenlive
