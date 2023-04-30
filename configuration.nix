@@ -103,6 +103,7 @@
 
   services = {
     emacs.enable = true;
+    openssh.enable = true;
     transmission.enable = true;
     nscd.enableNsncd = true;
     unbound.enable = true;
