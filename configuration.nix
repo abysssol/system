@@ -40,11 +40,7 @@
 
   documentation.dev.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    lxqt.enable = true;
-  };
+  xdg.portal.enable = true;
 
   qt5.enable = true;
   qt5.platformTheme = "lxqt";
@@ -235,7 +231,6 @@
       vlc
 
       firefox
-      librewolf
       unstable.tor-browser-bundle-bin
       kiwix
 
@@ -280,6 +275,23 @@
 
     gnupg.agent.enable = true;
     gnupg.agent.pinentryFlavor = "tty";
+
+    firefox = {
+      enable = true;
+      package = pkgs.librewolf;
+      autoConfig = ''
+        defaultPref("general.smoothScroll", false);
+
+        defaultPref("browser.startup.homepage", "about:blank");
+        defaultPref("browser.newtabpage.enabled", false);
+
+        defaultPref("browser.urlbar.shortcuts.tabs", false);
+        defaultPref("browser.urlbar.suggest.openpage", false);
+
+        defaultPref("browser.toolbars.bookmarks.visibility", "always");
+        defaultPref("browser.download.autohideButton", true);
+      '';
+    };
 
     sway = {
       enable = true;
