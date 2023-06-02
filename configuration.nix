@@ -330,8 +330,8 @@
       defaultFonts = {
         serif = [ "Noto Serif" ];
         sansSerif = [ "Noto Sans" ];
-        emoji = [ "Noto Color Emoji" "Noto Emoji" "Noto Music" "FontAwesome" ];
-        monospace = [ "Hack Nerd Font" "Noto Sans Mono" ];
+        emoji = [ "Noto Color Emoji" "Noto Music" "Hack Nerd Font" ];
+        monospace = [ "Hack Nerd Font Mono" "Noto Sans Mono" ];
       };
     };
   };
