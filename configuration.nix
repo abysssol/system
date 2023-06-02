@@ -34,8 +34,6 @@
 
   security.rtkit.enable = true;
 
-  users.users.root.shell = pkgs.fish;
-
   gtk.iconCache.enable = true;
 
   documentation.dev.enable = true;

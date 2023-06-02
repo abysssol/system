@@ -46,8 +46,15 @@
   services.xserver.xkbOptions = "caps:escape";
 
   # Create list of desired users
+  users.mutableUsers = false;
   users.users = {
+    root = {
+      hashedPassword = "$y$j9T$0kwwXRWDkIwJwKGrpULr/1$5xQUSshBVF.gb9I7D4zDR7i7E8hx1qsC2SGnSDbio8B";
+      shell = pkgs.fish;
+    };
+
     abysssol = {
+      hashedPassword = "$y$j9T$ATcuMI/vbj6osFE24zskn1$58Jx/k.YAQXYn9TGXzKeP4rZBUSoT1zYe1VLN7/6oW2";
       isNormalUser = true;
       shell = pkgs.fish;
       extraGroups = [
