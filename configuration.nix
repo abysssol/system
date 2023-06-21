@@ -38,7 +38,10 @@
 
   documentation.dev.enable = true;
 
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = lib.mkForce [pkgs.lxqt.xdg-desktop-portal-lxqt];
+  };
 
   qt5.enable = true;
   qt5.platformTheme = "lxqt";
