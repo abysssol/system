@@ -40,7 +40,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = lib.mkForce [pkgs.lxqt.xdg-desktop-portal-lxqt];
+    extraPortals = lib.mkForce [ pkgs.lxqt.xdg-desktop-portal-lxqt ];
   };
 
   qt.enable = true;
