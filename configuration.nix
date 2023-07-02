@@ -43,8 +43,8 @@
     extraPortals = lib.mkForce [pkgs.lxqt.xdg-desktop-portal-lxqt];
   };
 
-  qt5.enable = true;
-  qt5.platformTheme = "lxqt";
+  qt.enable = true;
+  qt.platformTheme = "lxqt";
 
   systemd.timers.update-blocklist.timerConfig.Persistent = "true";
   systemd.services.update-blocklist = {
