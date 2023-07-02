@@ -165,6 +165,7 @@
       rsync
       strace
       curl
+      dig
       zip
       unzip
       p7zip
