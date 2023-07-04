@@ -46,15 +46,14 @@
   services.xserver.xkbOptions = "caps:escape";
 
   # Create list of desired users
+  # Run `mkpasswd` to get a password hash from the desired password
   users = {
     mutableUsers = false;
     defaultUserShell = pkgs.fish;
 
     users = {
-      root = {
-        hashedPassword =
-          "$y$j9T$0kwwXRWDkIwJwKGrpULr/1$5xQUSshBVF.gb9I7D4zDR7i7E8hx1qsC2SGnSDbio8B";
-      };
+      root.hashedPassword =
+        "$y$j9T$0kwwXRWDkIwJwKGrpULr/1$5xQUSshBVF.gb9I7D4zDR7i7E8hx1qsC2SGnSDbio8B";
 
       abysssol = {
         hashedPassword =
