@@ -191,16 +191,17 @@
       llvmPackages_latest.bintools
       llvmPackages_latest.lldb
 
-      unstable.rust-analyzer
-      flakes.rust
-
       shellcheck
       shfmt
       nil
       nixpkgs-fmt
+      nixfmt
       ghc
       haskell-language-server
       nodePackages.yaml-language-server
+
+      flakes.rust
+      unstable.rust-analyzer
 
       unstable.helix
       exa
