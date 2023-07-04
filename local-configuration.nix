@@ -72,7 +72,12 @@
         ];
         packages = with pkgs; [
           (flakes.rust.override {
-            targets = [ "wasm32-unknown-unknown" "wasm32-wasi" ];
+            targets = [
+              "x86_64-unknown-linux-musl"
+              "wasm64-unknown-unknown"
+              "wasm32-unknown-unknown"
+              "wasm32-wasi"
+            ];
           })
           bacon
           mdbook
