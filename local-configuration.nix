@@ -74,7 +74,6 @@
           (flakes.rust.override {
             targets = [
               "x86_64-unknown-linux-musl"
-              "wasm64-unknown-unknown"
               "wasm32-unknown-unknown"
               "wasm32-wasi"
             ];
