@@ -59,11 +59,10 @@
       failures=0
       blocklist="$(mktemp /tmp/blocklist.XXXXXXX)"
       error="$(mktemp /tmp/curl-error.XXXXXXX)"
-      clean-exit () {
+      cleanup () {
         echo "info: encountered $failures download failures"
         rm "$blocklist"
         rm "$error"
-        exit $1
       }
 
       echo "info: updating blocklist"
@@ -75,7 +74,8 @@
 
         if [ "$failures" -gt $max_failures ]; then
           echo "error: maximum download failures encountered" >&2
-          clean-exit 1
+          cleanup
+          exit 1
         fi
 
         sleep $((failures * failures))
@@ -83,7 +83,8 @@
 
       if [ ! -s "$blocklist" ]; then
         echo "error: downloaded blocklist is empty" >&2
-        clean-exit 1
+        cleanup
+        exit 1
       fi
 
       if [ ! -e "/etc/unbound/blocklist.bak" ]; then
@@ -94,7 +95,13 @@
       chmod 644 "/etc/unbound/blocklist"
 
       echo "info: successfully updated blocklist"
-      clean-exit 0
+      cleanup
+
+      echo "info: restarting dns server to use new blocklist"
+      systemctl restart unbound.service
+
+      echo "info: dns server restarted"
+      exit 0
     '';
   };
 
