@@ -58,35 +58,43 @@
       max_failures=20
       failures=0
       blocklist="$(mktemp /tmp/blocklist.XXXXXXX)"
+      blocklist_bak="$(mktemp /tmp/blocklist.bak.XXXXXXX)"
       error="$(mktemp /tmp/curl-error.XXXXXXX)"
-      cleanup () {
-        echo "info: encountered $failures download failures"
+      info() { echo "info: ""$1"; }
+      warning() { echo "warning: ""$1" >&2; }
+      error() { echo "error: ""$1" >&2; }
+      clean_exit() {
+        info "encountered $failures download failures"
+        info "exiting"
         rm "$blocklist"
+        rm "$blocklist_bak"
         rm "$error"
+        exit "$1"
       }
 
-      echo "info: updating blocklist"
+      info "updating blocklist"
 
       while ! curl -sSf $blocklist_url >"$blocklist" 2>"$error"; do
         failures=$((failures + 1))
-        echo "error: unable to download blocklist" >&2
+        warning "unable to download blocklist"
         echo "  -| $(cat "$error")" >&2
 
         if [ "$failures" -gt $max_failures ]; then
-          echo "error: maximum download failures encountered" >&2
-          cleanup
-          exit 1
+          warning "reached maximum download failures"
+          clean_exit 1
         fi
 
         sleep $((failures * failures))
       done
 
       if [ ! -s "$blocklist" ]; then
-        echo "error: downloaded blocklist is empty" >&2
-        cleanup
-        exit 1
+        error "downloaded blocklist is empty"
+        clean_exit 1
       fi
 
+      info "blocklist downloaded successfully"
+
+      cp "/etc/unbound/blocklist" "$blocklist_bak"
       if [ ! -e "/etc/unbound/blocklist.bak" ]; then
         mv "/etc/unbound/blocklist" "/etc/unbound/blocklist.bak"
       fi
@@ -94,14 +102,27 @@
       cp "$blocklist" "/etc/unbound/blocklist"
       chmod 644 "/etc/unbound/blocklist"
 
+      info "restarting dns server to activate new blocklist"
+      if ! systemctl restart unbound.service; then
+        error "dns server failed to restart"
+
+        info "restoring blocklist to previous version"
+        cp "$blocklist_bak" "/etc/unbound/blocklist"
+        chmod 644 "/etc/unbound/blocklist"
+
+        if systemctl restart unbound.service; then
+          info "dns server started correctly with previous blocklist"
+          warning "downloaded blocklist was invalid"
+          clean_exit 1
+        else
+          error "dns server failed to start with previous blocklist"
+          warning "dns server down"
+          clean_exit 2
+        fi
+      fi
+
       echo "info: successfully updated blocklist"
-      cleanup
-
-      echo "info: restarting dns server to use new blocklist"
-      systemctl restart unbound.service
-
-      echo "info: dns server restarted"
-      exit 0
+      clean_exit 0
     '';
   };
 
