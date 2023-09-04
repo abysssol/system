@@ -281,7 +281,7 @@
       darktable
 
       scribus
-      ghostwriter
+      qownnotes
       libreoffice
 
       obs-studio
