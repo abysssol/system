@@ -261,6 +261,7 @@
       mpv
       vlc
 
+      ungoogled-chromium
       firefox
       unstable.tor-browser-bundle-bin
       kiwix
