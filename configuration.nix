@@ -203,6 +203,7 @@
       xclip
       wl-clipboard
       man-pages
+      psmisc
 
       yadm
       tldr
