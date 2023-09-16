@@ -1,7 +1,7 @@
 # Important config, machine-specific
 # Look over on new machine
 
-{ pkgs, flakes, ... }:
+{ pkgs, unstable, flakes, ... }:
 
 {
   # Enable the unfree nvidia gpu drivers if necessary
@@ -78,7 +78,8 @@
               "wasm32-wasi"
             ];
           })
-          bacon
+          unstable.bacon
+          ffmpeg-normalize
           mdbook
           razergenie
         ];

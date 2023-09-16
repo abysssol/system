@@ -204,6 +204,7 @@
       wl-clipboard
       man-pages
       psmisc
+      parallel
 
       yadm
       tldr
