@@ -234,7 +234,7 @@
       unstable.rust-analyzer
 
       unstable.helix
-      exa
+      eza
       zoxide
       broot
       bat
@@ -246,7 +246,7 @@
       procs
       zenith
       du-dust
-      lfs
+      dysk
       tokei
       starship
       gitui
@@ -274,7 +274,7 @@
       audacity
       lmms
 
-      godot
+      godot_4
       blender
       synfigstudio
       inkscape
@@ -348,10 +348,10 @@
   };
 
   fonts = {
-    enableDefaultFonts = true;
+    enableDefaultPackages = true;
     fontDir.enable = true;
 
-    fonts = with pkgs; [
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji

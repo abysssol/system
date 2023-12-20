@@ -1,8 +1,7 @@
 {
   inputs = {
-    nixos.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixos.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
     utils.url = "github:numtide/flake-utils";
 
     rust = {
@@ -12,7 +11,6 @@
         flake-utils.follows = "utils";
       };
     };
-
     dmm = {
       url = "github:abysssol/dmm";
       inputs = {
@@ -21,14 +19,13 @@
         rust.follows = "rust";
       };
     };
-
     blocklist = {
       url = "https://big.oisd.nl/unbound";
       flake = false;
     };
   };
 
-  outputs = { self, nixos, nixpkgs, rust, dmm, blocklist, ... }:
+  outputs = { self, nixos, nixpkgs, rust, dmm, blocklist }:
     let
       lib = nixpkgs.lib;
 
