@@ -205,6 +205,7 @@
       man-pages
       psmisc
       parallel
+      file
 
       yadm
       tldr
@@ -225,7 +226,6 @@
       shfmt
       nil
       nixpkgs-fmt
-      nixfmt
       ghc
       haskell-language-server
       nodePackages.yaml-language-server
@@ -234,6 +234,7 @@
       unstable.rust-analyzer
 
       unstable.helix
+      jujutsu
       eza
       zoxide
       broot
@@ -245,6 +246,7 @@
       sd
       procs
       zenith
+      trippy
       du-dust
       dysk
       tokei
@@ -256,16 +258,18 @@
       alacritty
       dmenu
       feh
+      keepassxc
       virt-manager
       taffybar
       kid3
+      okular
       swaylock
       mpv
       vlc
 
-      ungoogled-chromium
       firefox
       unstable.tor-browser-bundle-bin
+      ungoogled-chromium
       kiwix
 
       unstable.prismlauncher
@@ -284,8 +288,8 @@
       darktable
 
       scribus
-      qownnotes
       libreoffice
+      qownnotes
 
       obs-studio
       kdenlive

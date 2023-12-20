@@ -78,6 +78,8 @@
               "wasm32-wasi"
             ];
           })
+          protontricks
+          cargo-show-asm
           unstable.bacon
           ffmpeg-normalize
           mdbook

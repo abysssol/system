@@ -25,7 +25,7 @@
     };
   };
 
-  outputs = { self, nixos, nixpkgs, rust, dmm, blocklist }:
+  outputs = { nixos, nixpkgs, rust, dmm, blocklist, ... }:
     let
       lib = nixpkgs.lib;
 
@@ -37,12 +37,15 @@
         # Allow specific unfree packages
         config.allowUnfreePredicate = pkg:
           builtins.elem (lib.getName pkg) [
-            "steam"
-            "steam-run"
-            "steam-original"
             # These are required to enable unfree nvidia drivers
             "nvidia-x11"
             "nvidia-settings"
+
+            "steam"
+            "steam-run"
+            "steam-original"
+
+            "obsidian"
           ];
       };
 
