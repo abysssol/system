@@ -222,6 +222,7 @@
       llvmPackages_latest.bintools
       llvmPackages_latest.lldb
 
+      shellharden
       shellcheck
       shfmt
       nil
