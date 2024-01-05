@@ -208,7 +208,7 @@
       file
 
       yadm
-      tldr
+      tealdeer
       neofetch
       yt-dlp
       pandoc
