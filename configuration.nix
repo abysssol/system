@@ -74,12 +74,12 @@
 
       info "updating blocklist"
 
-      while ! curl -sSf $blocklist_url >"$blocklist" 2>"$error"; do
+      while ! curl -sSf "$blocklist_url" >"$blocklist" 2>"$error"; do
         failures=$((failures + 1))
         warning "unable to download blocklist"
         echo "  -| $(cat "$error")" >&2
 
-        if [ "$failures" -gt $max_failures ]; then
+        if [ "$failures" -gt "$max_failures" ]; then
           warning "reached maximum download failures"
           clean_exit 1
         fi
