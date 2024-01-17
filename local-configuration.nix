@@ -69,6 +69,7 @@
           "kvm"
           "video"
           "render"
+          "dialout"
         ];
         packages = with pkgs; [
           (flakes.rust.override {
