@@ -43,7 +43,6 @@
   # Change keyboard properties
   i18n.defaultLocale = "en_US.UTF-8";
   console.useXkbConfig = true;
-  services.xserver.xkbOptions = "caps:escape";
 
   # Create list of desired users
   # Run `mkpasswd` to get a password hash from the desired password
