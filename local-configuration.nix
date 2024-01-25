@@ -52,11 +52,11 @@
 
     users = {
       root.hashedPassword =
-        "$y$j9T$0kwwXRWDkIwJwKGrpULr/1$5xQUSshBVF.gb9I7D4zDR7i7E8hx1qsC2SGnSDbio8B";
+        "$y$j9T$E416fcyysC9GBYYrcE4B5.$wSuUn9UCRa9czYSmgYDgl3YXjAw024Pq1NbFCYX6zD9";
 
       abysssol = {
         hashedPassword =
-          "$y$j9T$ATcuMI/vbj6osFE24zskn1$58Jx/k.YAQXYn9TGXzKeP4rZBUSoT1zYe1VLN7/6oW2";
+          "$y$j9T$LHtvHpDXZj3cYh8kpVmBi1$6TtarDVDgcW/4tQwTJmaViUqwjw3iVNKb5dVwMtssw9";
         isNormalUser = true;
         extraGroups = [
           "wheel"
