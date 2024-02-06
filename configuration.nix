@@ -127,7 +127,6 @@
   };
 
   services = {
-    emacs.enable = true;
     openssh.enable = true;
     transmission.enable = true;
     nscd.enableNsncd = true;
@@ -218,10 +217,6 @@
       unstable.gogdl
       unstable.legendary-gl
 
-      llvmPackages_latest.clang
-      llvmPackages_latest.bintools
-      llvmPackages_latest.lldb
-
       shellharden
       shellcheck
       shfmt
@@ -230,9 +225,6 @@
       ghc
       haskell-language-server
       nodePackages.yaml-language-server
-
-      flakes.rust
-      unstable.rust-analyzer
 
       unstable.helix
       jujutsu

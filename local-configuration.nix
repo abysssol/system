@@ -77,12 +77,17 @@
               "wasm32-wasi"
             ];
           })
+          unstable.rust-analyzer
+
+          llvmPackages_latest.clang
+          llvmPackages_latest.bintools
+          llvmPackages_latest.lldb
+
           protontricks
           cargo-show-asm
           unstable.bacon
           ffmpeg-normalize
           mdbook
-          razergenie
         ];
       };
     };
