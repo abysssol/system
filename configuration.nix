@@ -184,7 +184,7 @@
     localBinInPath = true;
     shells = [ pkgs.fish ];
 
-    etc."unbound/blocklist".source = blocklist;
+    etc."unbound/blocklist".source = "${blocklist}/unbound_big.txt";
 
     defaultPackages = [ ];
     systemPackages = with pkgs; [

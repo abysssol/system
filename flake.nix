@@ -20,7 +20,7 @@
       };
     };
     blocklist = {
-      url = "https://big.oisd.nl/unbound";
+      url = "github:sjhgvr/oisd";
       flake = false;
     };
   };
