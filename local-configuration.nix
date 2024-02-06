@@ -55,7 +55,7 @@
 
       abysssol = {
         hashedPassword =
-          "$y$j9T$LHtvHpDXZj3cYh8kpVmBi1$6TtarDVDgcW/4tQwTJmaViUqwjw3iVNKb5dVwMtssw9";
+          "$y$j9T$HZ7PIHYVRkZ69T/wNf63n1$rCG1t2Y3BVuTosLDgyRdr5LKR29spB.ZsH5cqnVjns8";
         isNormalUser = true;
         extraGroups = [
           "wheel"
