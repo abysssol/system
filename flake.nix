@@ -27,10 +27,10 @@
 
   outputs = { nixos, nixpkgs, rust, dmm, blocklist, ... }:
     let
-      lib = nixpkgs.lib;
-
       system = "x86_64-linux";
       hostname = "tungsten";
+
+      inherit (nixpkgs) lib;
 
       nixpkgsConfig = {
         inherit system;
