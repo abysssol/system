@@ -7,6 +7,7 @@
 
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.sandbox = true;
 
   nixpkgs.pkgs = stable;
 
