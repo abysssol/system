@@ -10,6 +10,7 @@
   # Support rocm for amd gpus
   hardware.opengl.extraPackages = with pkgs; [
     rocmPackages.clr.icd
+    rocmPackages.rocm-smi
   ];
 
   # Compress all files transparently (btrfs only)
