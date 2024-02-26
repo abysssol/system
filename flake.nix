@@ -2,15 +2,15 @@
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
     utils.url = "github:numtide/flake-utils";
 
     rust = {
       url = "github:oxalica/rust-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "utils";
     };
+
     dmm = {
       url = "github:abysssol/dmm";
       inputs = {
@@ -19,10 +19,9 @@
         rust.follows = "rust";
       };
     };
-    blocklist = {
-      url = "github:sjhgvr/oisd";
-      flake = false;
-    };
+
+    blocklist.url = "github:sjhgvr/oisd";
+    blocklist.flake = false;
   };
 
   outputs = { nixos, nixpkgs, rust, dmm, blocklist, ... }:
@@ -30,13 +29,11 @@
       system = "x86_64-linux";
       hostname = "tungsten";
 
-      inherit (nixpkgs) lib;
-
       nixpkgsConfig = {
         inherit system;
         # Allow specific unfree packages
         config.allowUnfreePredicate = pkg:
-          builtins.elem (lib.getName pkg) [
+          builtins.elem (nixos.lib.getName pkg) [
             # These are required to enable unfree nvidia drivers
             "nvidia-x11"
             "nvidia-settings"
@@ -44,24 +41,21 @@
             "steam"
             "steam-run"
             "steam-original"
-
-            "obsidian"
           ];
       };
-
-      stable = import nixos nixpkgsConfig;
+      pkgs = import nixos nixpkgsConfig;
       unstable = import nixpkgs nixpkgsConfig;
+      inherit (pkgs) lib;
 
-      flakePkgs = { inherit rust dmm; };
       defaultPackage = name: value: value.packages.${system}.default;
-      flakes = lib.attrsets.mapAttrs defaultPackage flakePkgs;
-
-      specialArgs = {
-        inherit system hostname stable unstable flakes blocklist;
+      flakes = lib.mapAttrs defaultPackage {
+        inherit rust dmm;
       };
-    in {
+      specialArgs = { inherit hostname unstable flakes blocklist; };
+    in
+    {
       nixosConfigurations.${hostname} = nixos.lib.nixosSystem {
-        inherit system specialArgs;
+        inherit system pkgs lib specialArgs;
         modules = [
           ./hardware-configuration.nix
           ./local-configuration.nix

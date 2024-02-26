@@ -1,9 +1,7 @@
 # Important config, machine-specific
 # Look over on new machine
 
-{ pkgs, unstable, flakes, ... }:
-
-{
+{ pkgs, unstable, flakes, ... }: {
   # Enable the unfree nvidia gpu drivers if necessary
   #services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -35,7 +33,7 @@
 
   # Include a blocklist to prevent connecting to ads, spam, malware, etc.
   # Comment out if it imapcts dns resolution performance significantly
-  services.unbound.settings = { include = "/etc/unbound/blocklist"; };
+  services.unbound.settings.include = "/etc/unbound/blocklist";
 
   # Change to correct time zone
   time.timeZone = "America/New_York";

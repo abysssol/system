@@ -2,14 +2,9 @@
 # $ man configuration.nix
 # $ nixos-help
 
-{ config, options, lib, hostname, pkgs, stable, unstable, flakes, blocklist, ...
-}:
-
-{
+{ pkgs, lib, hostname, unstable, flakes, blocklist, ... }: {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.sandbox = true;
-
-  nixpkgs.pkgs = stable;
 
   hardware = {
     enableRedistributableFirmware = true;
