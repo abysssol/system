@@ -82,11 +82,14 @@
           llvmPackages_latest.bintools
           llvmPackages_latest.lldb
 
-          protontricks
           cargo-show-asm
+          hyperfine
           unstable.bacon
-          ffmpeg-normalize
           mdbook
+
+          protontricks
+          ffmpeg-normalize
+          bazecor
         ];
       };
     };

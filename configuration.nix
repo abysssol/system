@@ -259,7 +259,9 @@
       firefox
       unstable.tor-browser-bundle-bin
       ungoogled-chromium
+      nyxt
       kiwix
+      element-desktop
 
       unstable.prismlauncher
       unstable.heroic
