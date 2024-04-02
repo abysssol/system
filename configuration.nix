@@ -186,6 +186,7 @@
       # cli
       perl
       rsync
+      rclone
       strace
       curl
       dig
