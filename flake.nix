@@ -5,6 +5,9 @@
 
     utils.url = "github:numtide/flake-utils";
 
+    blocklist.url = "github:sjhgvr/oisd";
+    blocklist.flake = false;
+
     rust = {
       url = "github:oxalica/rust-overlay/stable";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,9 +22,6 @@
         rust.follows = "rust";
       };
     };
-
-    blocklist.url = "github:sjhgvr/oisd";
-    blocklist.flake = false;
   };
 
   outputs = { nixos, nixpkgs, rust, dmm, blocklist, ... }:
