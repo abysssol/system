@@ -3,8 +3,17 @@
 # $ nixos-help
 
 { pkgs, lib, hostname, unstable, flakes, blocklist, ... }: {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.settings.sandbox = true;
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 28d";
+    };
+  };
 
   hardware = {
     enableRedistributableFirmware = true;
