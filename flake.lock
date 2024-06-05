@@ -19,11 +19,11 @@
     "blocklist": {
       "flake": false,
       "locked": {
-        "lastModified": 1713669180,
-        "narHash": "sha256-oyF9qOpghwaFuNLcJKgEr/1ELru2ZD+1CoEzL1lGw2U=",
+        "lastModified": 1717567966,
+        "narHash": "sha256-vGKWUX7u6lBPlRKtC2TDrKRYZ+zp4wf8Ev3nn6KJRZE=",
         "owner": "sjhgvr",
         "repo": "oisd",
-        "rev": "4f5fec2d980ae530c192dea409a72278c37d31d9",
+        "rev": "458cac63159528aa7b0e8cf48f1e833314211d73",
         "type": "github"
       },
       "original": {
@@ -108,27 +108,27 @@
     },
     "nixos": {
       "locked": {
-        "lastModified": 1713564160,
-        "narHash": "sha256-YguPZpiejgzLEcO36/SZULjJQ55iWcjAmf3lYiyV1Fo=",
+        "lastModified": 1717281328,
+        "narHash": "sha256-evZPzpf59oNcDUXxh2GHcxHkTEG4fjae2ytWP85jXRo=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "bc194f70731cc5d2b046a6c1b3b15f170f05999c",
+        "rev": "b3b2b28c1daa04fe2ae47c21bb76fd226eac4ca1",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-23.11",
+        "ref": "nixos-24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1713805509,
-        "narHash": "sha256-LoExypse3c/uun/39u4bPTN4wejIF7hNsdITZO41qTw=",
+        "lastModified": 1717399147,
+        "narHash": "sha256-eCWaE/q1VItpFAxxLVt171MdtDcjEnwi6QB/yuF73JU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d764f230634fa4f86dc8d01c6af9619c7cc5d225",
+        "rev": "4a4ecb0ab415c9fccfb005567a215e6a9564cdf5",
         "type": "github"
       },
       "original": {
@@ -158,11 +158,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713062877,
-        "narHash": "sha256-msvDk9+qkD4jvMf63PieGRy+hHk0VIKruivHM1BmCM8=",
+        "lastModified": 1717442957,
+        "narHash": "sha256-w0fqHofxM2hf3pGDXCPSdH0A09v6FgHm6I38nCWA96k=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "5990088d56f0b936fa2633c2a4d76b8d36a01105",
+        "rev": "025e1742de4fa75b3fb63818bd9726d17da6a102",
         "type": "github"
       },
       "original": {

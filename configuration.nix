@@ -132,6 +132,7 @@
   };
 
   services = {
+    libinput.enable = true;
     openssh.enable = true;
     transmission.enable = true;
     nscd.enableNsncd = true;
@@ -157,7 +158,6 @@
 
     xserver = {
       enable = true;
-      libinput.enable = true;
       wacom.enable = true;
       digimend.enable = true;
       gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
@@ -314,7 +314,7 @@
     ssh.startAgent = true;
 
     gnupg.agent.enable = true;
-    gnupg.agent.pinentryFlavor = "tty";
+    gnupg.agent.pinentryPackage = pkgs.pinentry-tty;
 
     firefox = {
       enable = true;
