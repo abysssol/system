@@ -132,6 +132,7 @@
   };
 
   services = {
+    logind.powerKey = "ignore";
     libinput.enable = true;
     openssh.enable = true;
     transmission.enable = true;
@@ -290,6 +291,7 @@
 
       scribus
       libreoffice
+      ghostwriter
       qownnotes
 
       obs-studio
