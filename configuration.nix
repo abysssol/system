@@ -263,6 +263,7 @@
       taffybar
       kid3
       okular
+      calibre
       swaylock
       mpv
       vlc
