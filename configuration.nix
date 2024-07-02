@@ -219,6 +219,7 @@
       yt-dlp
       pandoc
       graphicsmagick
+      ffmpeg
       wineWowPackages.full
       haskellPackages.status-notifier-item
       unstable.gogdl
