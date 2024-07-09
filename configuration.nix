@@ -229,7 +229,7 @@
       shellcheck
       shfmt
       nil
-      nixpkgs-fmt
+      nixfmt-rfc-style
       ghc
       haskell-language-server
       nodePackages.yaml-language-server
