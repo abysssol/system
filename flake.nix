@@ -11,7 +11,6 @@
     rust = {
       url = "github:oxalica/rust-overlay/stable";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "utils";
     };
 
     dmm = {
