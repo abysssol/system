@@ -214,7 +214,6 @@
       file
 
       yadm
-      tealdeer
       neofetch
       yt-dlp
       pandoc
@@ -222,6 +221,7 @@
       ffmpeg
       wineWowPackages.full
       haskellPackages.status-notifier-item
+      monero-cli
       unstable.gogdl
       unstable.legendary-gl
 
@@ -235,6 +235,7 @@
       nodePackages.yaml-language-server
 
       unstable.helix
+      tealdeer
       jujutsu
       eza
       zoxide
@@ -268,6 +269,7 @@
       swaylock
       mpv
       vlc
+      monero-gui
 
       firefox
       unstable.tor-browser-bundle-bin
