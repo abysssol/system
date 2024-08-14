@@ -2,10 +2,22 @@
 # $ man configuration.nix
 # $ nixos-help
 
-{ pkgs, lib, hostname, unstable, flakes, blocklist, ... }: {
+{
+  pkgs,
+  lib,
+  hostname,
+  unstable,
+  flakes,
+  blocklist,
+  ...
+}:
+{
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
     };
     gc = {
@@ -30,7 +42,10 @@
 
   networking = {
     hostName = hostname;
-    nameservers = [ "127.0.0.1" "::1" ];
+    nameservers = [
+      "127.0.0.1"
+      "::1"
+    ];
     dhcpcd.extraConfig = "nohook resolv.conf";
   };
 
@@ -57,7 +72,10 @@
     serviceConfig.Type = "simple";
     startAt = [ "daily" ];
     after = [ "network.target" ];
-    path = with pkgs; [ curl gzip ];
+    path = with pkgs; [
+      curl
+      gzip
+    ];
     script = ''
       blocklist_url="https://big.oisd.nl/unbound"
       max_failures=20
@@ -139,13 +157,17 @@
     nscd.enableNsncd = true;
     unbound.enable = true;
     unbound.settings = {
-      forward-zone = [{
-        name = ".";
-        forward-addr =
-          [ "1.1.1.1@853#cloudflare-dns.com" "1.0.0.1@853#cloudflare-dns.com" ];
-        forward-tls-upstream = true;
-        forward-first = true;
-      }];
+      forward-zone = [
+        {
+          name = ".";
+          forward-addr = [
+            "1.1.1.1@853#cloudflare-dns.com"
+            "1.0.0.1@853#cloudflare-dns.com"
+          ];
+          forward-tls-upstream = true;
+          forward-first = true;
+        }
+      ];
     };
 
     pipewire = {
@@ -168,8 +190,7 @@
       windowManager.xmonad.enable = true;
       windowManager.xmonad.enableContribAndExtras = true;
 
-      displayManager.lightdm.extraSeatDefaults =
-        "greeter-setup-script=/run/current-system/sw/bin/numlockx";
+      displayManager.lightdm.extraSeatDefaults = "greeter-setup-script=/run/current-system/sw/bin/numlockx";
       displayManager.lightdm.greeters.gtk = {
         enable = true;
         extraConfig = "background=/etc/nixos/background";
@@ -378,8 +399,15 @@
       defaultFonts = {
         serif = [ "Noto Serif" ];
         sansSerif = [ "Noto Sans" ];
-        emoji = [ "Noto Color Emoji" "Noto Music" "Hack Nerd Font" ];
-        monospace = [ "Hack Nerd Font Mono" "Noto Sans Mono" ];
+        emoji = [
+          "Noto Color Emoji"
+          "Noto Music"
+          "Hack Nerd Font"
+        ];
+        monospace = [
+          "Hack Nerd Font Mono"
+          "Noto Sans Mono"
+        ];
       };
     };
   };

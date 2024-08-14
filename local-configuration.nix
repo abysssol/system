@@ -1,7 +1,13 @@
 # Important config, machine-specific
 # Look over on new machine
 
-{ pkgs, unstable, flakes, ... }: {
+{
+  pkgs,
+  unstable,
+  flakes,
+  ...
+}:
+{
   # Enable the unfree nvidia gpu drivers if necessary
   #services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -49,12 +55,10 @@
     defaultUserShell = pkgs.fish;
 
     users = {
-      root.hashedPassword =
-        "$y$j9T$E416fcyysC9GBYYrcE4B5.$wSuUn9UCRa9czYSmgYDgl3YXjAw024Pq1NbFCYX6zD9";
+      root.hashedPassword = "$y$j9T$E416fcyysC9GBYYrcE4B5.$wSuUn9UCRa9czYSmgYDgl3YXjAw024Pq1NbFCYX6zD9";
 
       abysssol = {
-        hashedPassword =
-          "$y$j9T$HZ7PIHYVRkZ69T/wNf63n1$rCG1t2Y3BVuTosLDgyRdr5LKR29spB.ZsH5cqnVjns8";
+        hashedPassword = "$y$j9T$HZ7PIHYVRkZ69T/wNf63n1$rCG1t2Y3BVuTosLDgyRdr5LKR29spB.ZsH5cqnVjns8";
         isNormalUser = true;
         extraGroups = [
           "wheel"
