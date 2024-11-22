@@ -257,7 +257,7 @@
 
       unstable.helix
       tealdeer
-      jujutsu
+      unstable.jujutsu
       eza
       zoxide
       broot
@@ -300,7 +300,7 @@
       element-desktop
 
       unstable.prismlauncher
-      unstable.heroic
+      heroic
 
       audacity
       lmms
