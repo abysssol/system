@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixos.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixos.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     utils.url = "github:numtide/flake-utils";
@@ -49,6 +49,7 @@
             "steam"
             "steam-run"
             "steam-original"
+            "steam-unwrapped"
           ];
       };
       pkgs = import nixos nixpkgsConfig;

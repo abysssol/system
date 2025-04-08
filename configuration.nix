@@ -31,9 +31,9 @@
     enableRedistributableFirmware = true;
     openrazer.enable = true;
     opentabletdriver.enable = true;
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
   };
 
@@ -182,8 +182,6 @@
     xserver = {
       enable = true;
       wacom.enable = true;
-      digimend.enable = true;
-      gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
       desktopManager.lxqt.enable = true;
 
@@ -339,6 +337,7 @@
     corectrl.enable = true;
     dconf.enable = true;
     ssh.startAgent = true;
+    gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
     gnupg.agent.enable = true;
     gnupg.agent.pinentryPackage = pkgs.pinentry-tty;
@@ -386,7 +385,7 @@
 
     packages = with pkgs; [
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       (nerdfonts.override { fonts = [ "Hack" ]; })
     ];

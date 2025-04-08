@@ -12,7 +12,7 @@
   #services.xserver.videoDrivers = [ "nvidia" ];
 
   # Support rocm for amd gpus
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.extraPackages = with pkgs; [
     rocmPackages.clr.icd
     rocmPackages.rocm-smi
   ];
@@ -77,7 +77,7 @@
             targets = [
               "x86_64-unknown-linux-musl"
               "wasm32-unknown-unknown"
-              "wasm32-wasi"
+              "wasm32-wasip1"
             ];
           })
           unstable.rust-analyzer
