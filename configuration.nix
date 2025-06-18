@@ -4,10 +4,8 @@
 
 {
   pkgs,
-  lib,
-  hostname,
+  hostName,
   unstable,
-  flakes,
   blocklist,
   ...
 }:
@@ -41,8 +39,9 @@
   boot.loader.timeout = 8;
 
   networking = {
-    hostName = hostname;
+    inherit hostName;
     nameservers = [
+      # use unbound
       "127.0.0.1"
       "::1"
     ];
@@ -54,21 +53,252 @@
 
   security.rtkit.enable = true;
 
-  gtk.iconCache.enable = true;
-
   documentation.dev.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = lib.mkForce [ pkgs.lxqt.xdg-desktop-portal-lxqt ];
-  };
 
   qt.enable = true;
   qt.platformTheme = "lxqt";
 
+  gtk.iconCache.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-cosmic ];
+  };
+
+  services = {
+    logind.powerKey = "ignore";
+    libinput.enable = true;
+    openssh.enable = true;
+    transmission.enable = true;
+    nscd.enableNsncd = true;
+    displayManager.cosmic-greeter.enable = true;
+    desktopManager.cosmic.enable = true;
+
+    unbound.enable = true;
+    unbound.settings = {
+      forward-zone = [
+        {
+          name = ".";
+          forward-addr = [
+            "1.1.1.1@853#cloudflare-dns.com"
+            "1.0.0.1@853#cloudflare-dns.com"
+            "8.8.8.8@853#dns.google"
+            "8.8.4.4@853#dns.google"
+          ];
+          forward-tls-upstream = true;
+          forward-first = true;
+        }
+      ];
+    };
+
+    pipewire = {
+      enable = true;
+      wireplumber.enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
+  };
+
+  environment = {
+    homeBinInPath = true;
+    localBinInPath = true;
+    shells = [ pkgs.fish ];
+
+    etc."unbound/blocklist".source = "${blocklist}/unbound_big.txt";
+
+    systemPackages = with pkgs; [
+      # cli
+      perl
+      strace
+      rsync
+      rclone
+      curl
+      dig
+      zip
+      unzip
+      p7zip
+      appimage-run
+      wasmtime
+      xclip
+      wl-clipboard
+      man-pages
+      psmisc
+      parallel
+      file
+
+      yadm
+      neofetch
+      yt-dlp
+      pandoc
+      graphicsmagick
+      ffmpeg
+      wineWowPackages.full
+      monero-cli
+
+      shellharden
+      shellcheck
+      shfmt
+      nil
+      nixfmt-rfc-style
+      nodePackages.yaml-language-server
+
+      unstable.helix
+      tealdeer
+      unstable.jujutsu
+      eza
+      zoxide
+      broot
+      bat
+      hexyl
+      ripgrep
+      fd
+      choose
+      sd
+      procs
+      zenith
+      trippy
+      du-dust
+      dysk
+      tokei
+      starship
+      gitui
+
+      # gui
+      alacritty
+      dmenu
+      feh
+      keepassxc
+      virt-manager
+      kid3
+      kdePackages.okular
+      calibre
+      mpv
+      vlc
+      monero-gui
+
+      firefox
+      unstable.tor-browser-bundle-bin
+      ungoogled-chromium
+      nyxt
+      kiwix
+      element-desktop
+
+      unstable.prismlauncher
+
+      heroic
+      unstable.gogdl
+      unstable.legendary-heroic
+
+      audacity
+      lmms
+
+      godot_4
+      blender
+      synfigstudio
+      inkscape
+      mypaint
+      krita
+      gimp
+      darktable
+
+      scribus
+      libreoffice
+      kdePackages.ghostwriter
+      qownnotes
+      obsidian
+      anki
+
+      obs-studio
+      kdePackages.kdenlive
+      flowblade
+
+      # themes
+      flat-remix-gtk
+      paper-icon-theme
+      phinger-cursors
+    ];
+  };
+
+  programs = {
+    fish.enable = true;
+    neovim.enable = true;
+    less.enable = true;
+    corectrl.enable = true;
+    dconf.enable = true;
+    ssh.startAgent = true;
+    gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+
+    gnupg.agent.enable = true;
+    gnupg.agent.pinentryPackage = pkgs.pinentry-tty;
+
+    git.enable = true;
+    git.config = {
+      init.defaultBranch = "master";
+      core.askpass = "";
+      core.editor = "hx";
+    };
+
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+    };
+
+    firefox = {
+      enable = true;
+      package = pkgs.librewolf;
+      autoConfig = ''
+        defaultPref("general.smoothScroll", false);
+
+        defaultPref("browser.startup.homepage", "about:blank");
+        defaultPref("browser.newtabpage.enabled", false);
+
+        defaultPref("browser.urlbar.shortcuts.tabs", false);
+        defaultPref("browser.urlbar.suggest.openpage", false);
+
+        defaultPref("browser.toolbars.bookmarks.visibility", "always");
+        defaultPref("browser.download.autohideButton", true);
+      '';
+    };
+  };
+
+  fonts = {
+    enableDefaultPackages = true;
+    fontDir.enable = true;
+
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      nerd-fonts.hack
+    ];
+
+    fontconfig = {
+      enable = true;
+      antialias = true;
+      hinting.enable = true;
+
+      defaultFonts = {
+        serif = [ "Noto Serif" ];
+        sansSerif = [ "Noto Sans" ];
+        emoji = [
+          "Noto Color Emoji"
+          "Noto Music"
+          "Hack Nerd Font"
+        ];
+        monospace = [
+          "Hack Nerd Font Mono"
+          "Noto Sans Mono"
+        ];
+      };
+    };
+  };
+
   systemd.timers.update-blocklist.timerConfig.Persistent = "true";
   systemd.services.update-blocklist = {
-    description = "Dns blocklist updater";
+    description = "DNS Blocklist Updater";
     serviceConfig.Type = "simple";
     startAt = [ "daily" ];
     after = [ "network.target" ];
@@ -147,267 +377,5 @@
       echo "info: successfully updated blocklist"
       clean_exit 0
     '';
-  };
-
-  services = {
-    logind.powerKey = "ignore";
-    libinput.enable = true;
-    openssh.enable = true;
-    transmission.enable = true;
-    nscd.enableNsncd = true;
-    unbound.enable = true;
-    unbound.settings = {
-      forward-zone = [
-        {
-          name = ".";
-          forward-addr = [
-            "1.1.1.1@853#cloudflare-dns.com"
-            "1.0.0.1@853#cloudflare-dns.com"
-          ];
-          forward-tls-upstream = true;
-          forward-first = true;
-        }
-      ];
-    };
-
-    pipewire = {
-      enable = true;
-      wireplumber.enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
-
-    xserver = {
-      enable = true;
-      wacom.enable = true;
-
-      desktopManager.lxqt.enable = true;
-
-      windowManager.xmonad.enable = true;
-      windowManager.xmonad.enableContribAndExtras = true;
-
-      displayManager.lightdm.extraSeatDefaults = "greeter-setup-script=/run/current-system/sw/bin/numlockx";
-      displayManager.lightdm.greeters.gtk = {
-        enable = true;
-        extraConfig = "background=/etc/nixos/background";
-        theme.name = "Flat-Remix-GTK-Blue-Darkest";
-        theme.package = pkgs.flat-remix-gtk;
-        cursorTheme.name = "phinger-cursors";
-        cursorTheme.size = 32;
-        cursorTheme.package = pkgs.phinger-cursors;
-        iconTheme.name = "Paper";
-        iconTheme.package = pkgs.paper-icon-theme;
-      };
-    };
-  };
-
-  environment = {
-    homeBinInPath = true;
-    localBinInPath = true;
-    shells = [ pkgs.fish ];
-
-    etc."unbound/blocklist".source = "${blocklist}/unbound_big.txt";
-
-    defaultPackages = [ ];
-    systemPackages = with pkgs; [
-      # cli
-      perl
-      rsync
-      rclone
-      strace
-      curl
-      dig
-      zip
-      unzip
-      p7zip
-      appimage-run
-      wasmtime
-      numlockx
-      xclip
-      wl-clipboard
-      man-pages
-      psmisc
-      parallel
-      file
-
-      yadm
-      neofetch
-      yt-dlp
-      pandoc
-      graphicsmagick
-      ffmpeg
-      wineWowPackages.full
-      haskellPackages.status-notifier-item
-      monero-cli
-      unstable.gogdl
-      unstable.legendary-gl
-
-      shellharden
-      shellcheck
-      shfmt
-      nil
-      nixfmt-rfc-style
-      ghc
-      haskell-language-server
-      nodePackages.yaml-language-server
-
-      unstable.helix
-      tealdeer
-      unstable.jujutsu
-      eza
-      zoxide
-      broot
-      bat
-      hexyl
-      ripgrep
-      fd
-      choose
-      sd
-      procs
-      zenith
-      trippy
-      du-dust
-      dysk
-      tokei
-      starship
-      gitui
-      flakes.dmm
-
-      # gui
-      alacritty
-      dmenu
-      feh
-      keepassxc
-      virt-manager
-      taffybar
-      kid3
-      okular
-      calibre
-      swaylock
-      mpv
-      vlc
-      monero-gui
-
-      firefox
-      unstable.tor-browser-bundle-bin
-      ungoogled-chromium
-      nyxt
-      kiwix
-      element-desktop
-
-      unstable.prismlauncher
-      heroic
-
-      audacity
-      lmms
-
-      godot_4
-      blender
-      synfigstudio
-      inkscape
-      mypaint
-      krita
-      gimp
-      darktable
-
-      scribus
-      libreoffice
-      ghostwriter
-      qownnotes
-
-      obs-studio
-      kdenlive
-      flowblade
-
-      # themes
-      flat-remix-gtk
-      paper-icon-theme
-      phinger-cursors
-    ];
-  };
-
-  programs = {
-    fish.enable = true;
-    neovim.enable = true;
-    slock.enable = true;
-    less.enable = true;
-    nm-applet.enable = true;
-    corectrl.enable = true;
-    dconf.enable = true;
-    ssh.startAgent = true;
-    gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
-
-    gnupg.agent.enable = true;
-    gnupg.agent.pinentryPackage = pkgs.pinentry-tty;
-
-    firefox = {
-      enable = true;
-      package = pkgs.librewolf;
-      autoConfig = ''
-        defaultPref("general.smoothScroll", false);
-
-        defaultPref("browser.startup.homepage", "about:blank");
-        defaultPref("browser.newtabpage.enabled", false);
-
-        defaultPref("browser.urlbar.shortcuts.tabs", false);
-        defaultPref("browser.urlbar.suggest.openpage", false);
-
-        defaultPref("browser.toolbars.bookmarks.visibility", "always");
-        defaultPref("browser.download.autohideButton", true);
-      '';
-    };
-
-    sway = {
-      enable = true;
-      wrapperFeatures.gtk = true;
-      extraPackages = [ ];
-    };
-
-    git.enable = true;
-    git.config = {
-      init.defaultBranch = "master";
-      core.askpass = "";
-      core.editor = "hx";
-    };
-
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = true;
-      dedicatedServer.openFirewall = true;
-    };
-  };
-
-  fonts = {
-    enableDefaultPackages = true;
-    fontDir.enable = true;
-
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "Hack" ]; })
-    ];
-
-    fontconfig = {
-      enable = true;
-      antialias = true;
-      hinting.enable = true;
-
-      defaultFonts = {
-        serif = [ "Noto Serif" ];
-        sansSerif = [ "Noto Sans" ];
-        emoji = [
-          "Noto Color Emoji"
-          "Noto Music"
-          "Hack Nerd Font"
-        ];
-        monospace = [
-          "Hack Nerd Font Mono"
-          "Noto Sans Mono"
-        ];
-      };
-    };
   };
 }

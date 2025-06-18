@@ -1,26 +1,13 @@
 {
   inputs = {
-    nixos.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixos.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    utils.url = "github:numtide/flake-utils";
+    rust.url = "github:oxalica/rust-overlay";
+    rust.inputs.nixpkgs.follows = "nixpkgs";
 
     blocklist.url = "github:sjhgvr/oisd";
     blocklist.flake = false;
-
-    rust = {
-      url = "github:oxalica/rust-overlay/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    dmm = {
-      url = "github:abysssol/dmm";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "utils";
-        rust.follows = "rust";
-      };
-    };
   };
 
   outputs =
@@ -28,13 +15,12 @@
       nixos,
       nixpkgs,
       rust,
-      dmm,
       blocklist,
       ...
     }:
     let
       system = "x86_64-linux";
-      hostname = "tungsten";
+      hostName = "tungsten";
 
       nixpkgsConfig = {
         inherit system;
@@ -50,6 +36,9 @@
             "steam-run"
             "steam-original"
             "steam-unwrapped"
+
+            "obsidian"
+            "unrar"
           ];
       };
       pkgs = import nixos nixpkgsConfig;
@@ -57,24 +46,23 @@
       inherit (pkgs) lib;
 
       defaultPackage = name: value: value.packages.${system}.default;
-      flakes = lib.mapAttrs defaultPackage { inherit rust dmm; };
-      specialArgs = {
-        inherit
-          hostname
-          unstable
-          flakes
-          blocklist
-          ;
-      };
+      flakes = lib.mapAttrs defaultPackage { inherit rust; };
     in
     {
-      nixosConfigurations.${hostname} = nixos.lib.nixosSystem {
+      nixosConfigurations.${hostName} = nixos.lib.nixosSystem {
         inherit
           system
           pkgs
           lib
-          specialArgs
           ;
+        specialArgs = {
+          inherit
+            hostName
+            unstable
+            flakes
+            blocklist
+            ;
+        };
         modules = [
           ./hardware-configuration.nix
           ./local-configuration.nix
