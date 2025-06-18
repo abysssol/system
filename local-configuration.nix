@@ -91,8 +91,11 @@
           unstable.bacon
           mdbook
 
+          lean4
+
           protontricks
           ffmpeg-normalize
+          unrar
           bazecor
         ];
       };
