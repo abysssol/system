@@ -190,6 +190,7 @@
       heroic
       unstable.gogdl
       unstable.legendary-heroic
+      unstable.nile
 
       audacity
       lmms
