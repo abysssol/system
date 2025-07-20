@@ -262,19 +262,232 @@
 
     firefox = {
       enable = true;
-      package = pkgs.librewolf;
-      autoConfig = ''
-        defaultPref("general.smoothScroll", false);
+      preferencesStatus = "default";
+      preferences = {
+        "browser.urlbar.shortcuts.tabs" = false;
+        "browser.urlbar.suggest.openpage" = false;
 
-        defaultPref("browser.startup.homepage", "about:blank");
-        defaultPref("browser.newtabpage.enabled", false);
+        "browser.toolbars.bookmarks.visibility" = "always";
+        "browser.download.autohideButton" = true;
 
-        defaultPref("browser.urlbar.shortcuts.tabs", false);
-        defaultPref("browser.urlbar.suggest.openpage", false);
+        "dom.security.https_only_mode" = true;
+        
+        # Betterfox
+        # "Ad meliora"
+        # version: 138
+        # url: https://github.com/yokoffing/Betterfox
 
-        defaultPref("browser.toolbars.bookmarks.visibility", "always");
-        defaultPref("browser.download.autohideButton", true);
-      '';
+        # SECTION: FASTFOX
+        # GFX
+        "gfx.canvas.accelerated.cache-size" = 512;
+        "gfx.content.skia-font-cache-size" = 20;
+
+        # DISK
+        "browser.cache.disk.enable" = false;
+
+        # MEMORY
+        "browser.sessionhistory.max_total_viewers" = 4;
+
+        # MEDIA
+        "media.memory_cache_max_size" = 65536;
+        "media.cache_readahead_limit" = 7200;
+        "media.cache_resume_threshold" = 3600;
+
+        # NETWORK
+        "network.http.max-connections" = 1800;
+        "network.http.max-persistent-connections-per-server" = 10;
+        "network.http.max-urgent-start-excessive-connections-per-host" = 5;
+        "network.http.pacing.requests.enabled" = false;
+        "network.dnsCacheExpiration" = 3600;
+        "network.ssl_tokens_cache_capacity" = 10240;
+
+        # SPECULATIVE
+        "network.http.speculative-parallel-limit" = 0;
+        "network.dns.disablePrefetch" = true;
+        "network.dns.disablePrefetchFromHTTPS" = true;
+        "browser.urlbar.speculativeConnect.enabled" = false;
+        "browser.places.speculativeConnect.enabled" = false;
+        "network.prefetch-next" = false;
+        "network.predictor.enabled" = false;
+        "network.predictor.enable-prefetch" = false;
+
+        # EXPERIMENTAL
+        "layout.css.grid-template-masonry-value.enabled" = true;
+
+        # SECTION: SECUREFOX
+        # TRACKING
+        "browser.contentblocking.category" = "strict";
+        "browser.download.start_downloads_in_tmp_dir" = true;
+        "browser.helperApps.deleteTempFileOnExit" = true;
+        "browser.uitour.enabled" = false;
+        "privacy.globalprivacycontrol.enabled" = true;
+
+        # OCSP
+        "security.OCSP.enabled" = 0;
+
+        # SSL
+        "browser.xul.error_pages.expert_bad_cert" = true;
+        "security.tls.enable_0rtt_data" = false;
+
+        # DISK
+        "browser.privatebrowsing.forceMediaMemoryCache" = true;
+        "browser.sessionstore.interval" = 60000;
+
+        # SEARCH
+        "browser.urlbar.trimHttps" = true;
+        "browser.urlbar.untrimOnUserInteraction.featureGate" = true;
+        "browser.search.separatePrivateDefault.ui.enabled" = true;
+        "browser.urlbar.update2.engineAliasRefresh" = true;
+        #"browser.search.suggest.enabled" = false;
+        "browser.urlbar.quicksuggest.enabled" = false;
+        "browser.urlbar.groupLabels.enabled" = false;
+        "browser.formfill.enable" = false;
+        "network.IDN_show_punycode" = true;
+
+        # PASSWORDS
+        "signon.formlessCapture.enabled" = false;
+        "signon.privateBrowsingCapture.enabled" = false;
+        "network.auth.subresource-http-auth-allow" = 1;
+
+        # MIXED
+        "security.mixed_content.block_display_content" = true;
+        "pdfjs.enableScripting" = false;
+
+        # EXTENSIONS
+        "extensions.enabledScopes" = 5;
+
+        # HEADERS
+        "network.http.referer.XOriginTrimmingPolicy" = 2;
+
+        # CONTAINERS
+        "privacy.userContext.ui.enabled" = true;
+
+        # SAFE
+        "browser.safebrowsing.downloads.remote.enabled" = false;
+
+        # MOZILLA
+        "geo.provider.network.url" = "https://beacondb.net/v1/geolocate";
+        "browser.search.update" = false;
+        "extensions.getAddons.cache.enabled" = false;
+
+        # TELEMETRY
+        "datareporting.policy.dataSubmissionEnabled" = false;
+        "browser.newtabpage.activity-stream.feeds.telemetry" = false;
+        "browser.newtabpage.activity-stream.telemetry" = false;
+
+        # CRASH
+        "browser.tabs.crashReporting.sendReport" = false;
+
+        # SECTION: PESKYFOX
+        # MOZILLA
+        "browser.privatebrowsing.vpnpromourl" = "";
+        "extensions.getAddons.showPane" = false;
+        "extensions.htmlaboutaddons.recommendations.enabled" = false;
+        "browser.discovery.enabled" = false;
+        "browser.shell.checkDefaultBrowser" = false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
+        "browser.preferences.moreFromMozilla" = false;
+        "browser.aboutConfig.showWarning" = false;
+        "browser.aboutwelcome.enabled" = false;
+        "browser.profiles.enabled" = true;
+
+        # THEME
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "browser.compactmode.show" = true;
+
+        # URL
+        "browser.urlbar.unitConversion.enabled" = true;
+        "browser.urlbar.trending.featureGate" = false;
+        "dom.text_fragments.create_text_fragment.enabled" = true;
+
+        # NEW
+        "browser.newtabpage.activity-stream.default.sites" = "";
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+        "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+        "browser.newtabpage.activity-stream.showSponsored" = false;
+
+        # POCKET
+        "extensions.pocket.enabled" = false;
+
+        # DOWNLOADS
+        "browser.download.manager.addToRecentDocs" = false;
+
+        # PDF
+        "browser.download.open_pdf_attachments_inline" = true;
+
+        # TAB
+        "browser.bookmarks.openInTabClosesMenu" = false;
+        "browser.menu.showViewImageInfo" = true;
+        "layout.word_select.eat_space_to_next_word" = false;
+
+        # SECTION: SMOOTHFOX
+        "general.smoothScroll" = true;
+        "general.smoothScroll.msdPhysics.enabled" = true;
+      };
+      policies = {
+        ExtensionSettings = {
+          "uBlock0@raymondhill.net" = {
+            installation_mode = "normal_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          };
+        };
+
+        SearchEngines = {
+          Add = [
+            {
+              Name = "Wikipedia";
+              Alias = "@wikipedia";
+              Description = "Crowd sourced encyclopedia";
+              IconURL = "https://en.wikipedia.org/favicon.ico";
+              URLTemplate = "https://en.wikipedia.org/wiki/{searchTerms}";
+              SuggestURLTemplate = "https://en.wikipedia.org/w/index.php?title=Special:Search&search={searchTerms}";
+              Method = "GET";
+            }
+            {
+              Name = "Wiktionary";
+              Alias = "@wiktionary";
+              Description = "Crowd sourced dictionary";
+              IconURL = "https://en.wiktionary.org/favicon.ico";
+              URLTemplate = "https://en.wiktionary.org/wiki/{searchTerms}";
+              SuggestURLTemplate = "https://en.wiktionary.org/w/index.php?title=Special:Search&search={searchTerms}";
+              Method = "GET";
+            }
+            {
+              Name = "Merriam-Webster Dictionary";
+              Alias = "@dictionary";
+              Description = "English dictionary";
+              IconURL = "https://merriam-webster.com/favicon.ico";
+              URLTemplate = "https://merriam-webster.com/dictionary/{searchTerms}";
+              Method = "GET";
+            }
+            {
+              Name = "Power Thesaurus";
+              Alias = "@thesaurus";
+              Description = "Comprehensive thesaurus";
+              IconURL = "https://powerthesaurus.org/favicon.ico";
+              URLTemplate = "https://powerthesaurus.org/{searchTerms}";
+              Method = "GET";
+            }
+            {
+              Name = "NixOS Options";
+              Alias = "@options";
+              Description = "Search NixOS options";
+              IconURL = "https://nixos.org/favicon.ico";
+              URLTemplate = "https://search.nixos.org/options?query={searchTerms}";
+              Method = "GET";
+            }
+            {
+              Name = "NixOS Packages";
+              Alias = "@packages";
+              Description = "Search Nixpkgs";
+              IconURL = "https://nixos.org/favicon.ico";
+              URLTemplate = "https://search.nixos.org/packages?query={searchTerms}";
+              Method = "GET";
+            }
+          ];
+        };
+      };
     };
   };
 
