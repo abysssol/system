@@ -91,6 +91,8 @@
           unstable.bacon
           mdbook
 
+          unstable.lean4
+
           protontricks
           ffmpeg-normalize
           unrar
