@@ -237,7 +237,6 @@
 
   programs = {
     fish.enable = true;
-    neovim.enable = true;
     less.enable = true;
     corectrl.enable = true;
     dconf.enable = true;
