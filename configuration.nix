@@ -270,159 +270,56 @@
         "browser.download.autohideButton" = true;
 
         "dom.security.https_only_mode" = true;
+
+        "general.smoothScroll.msdPhysics.enabled" = true;
+
+        "browser.download.open_pdf_attachments_inline" = true;
+
+        # CONTAINERS & PROFILES
+        "privacy.userContext.ui.enabled" = true;
+        "browser.profiles.enabled" = true;
+        "browser.privatebrowsing.vpnpromourl" = "";
+
+        # FULLSCREEN NOTICE
+        "full-screen-api.transition-duration.enter" = "0 0";
+        "full-screen-api.transition-duration.leave" = "0 0";
+        "full-screen-api.warning.timeout" = 0;
         
-        # Betterfox
-        # "Ad meliora"
-        # version: 138
-        # url: https://github.com/yokoffing/Betterfox
-
-        # SECTION: FASTFOX
-        # GFX
-        "gfx.canvas.accelerated.cache-size" = 512;
-        "gfx.content.skia-font-cache-size" = 20;
-
-        # DISK
-        "browser.cache.disk.enable" = false;
-
-        # MEMORY
-        "browser.sessionhistory.max_total_viewers" = 4;
-
-        # MEDIA
-        "media.memory_cache_max_size" = 65536;
-        "media.cache_readahead_limit" = 7200;
-        "media.cache_resume_threshold" = 3600;
-
-        # NETWORK
-        "network.http.max-connections" = 1800;
-        "network.http.max-persistent-connections-per-server" = 10;
-        "network.http.max-urgent-start-excessive-connections-per-host" = 5;
-        "network.http.pacing.requests.enabled" = false;
-        "network.dnsCacheExpiration" = 3600;
-        "network.ssl_tokens_cache_capacity" = 10240;
-
-        # SPECULATIVE
-        "network.http.speculative-parallel-limit" = 0;
-        "network.dns.disablePrefetch" = true;
-        "network.dns.disablePrefetchFromHTTPS" = true;
-        "browser.urlbar.speculativeConnect.enabled" = false;
-        "browser.places.speculativeConnect.enabled" = false;
-        "network.prefetch-next" = false;
-        "network.predictor.enabled" = false;
-        "network.predictor.enable-prefetch" = false;
-
-        # EXPERIMENTAL
-        "layout.css.grid-template-masonry-value.enabled" = true;
-
-        # SECTION: SECUREFOX
         # TRACKING
         "browser.contentblocking.category" = "strict";
         "browser.download.start_downloads_in_tmp_dir" = true;
         "browser.helperApps.deleteTempFileOnExit" = true;
-        "browser.uitour.enabled" = false;
         "privacy.globalprivacycontrol.enabled" = true;
 
-        # OCSP
+        # OCSP & CERTS / HPKP
         "security.OCSP.enabled" = 0;
+        "security.pki.crlite_mode" = 2;
 
         # SSL
+        "security.ssl.treat_unsafe_negotiation_as_broken" = true;
         "browser.xul.error_pages.expert_bad_cert" = true;
         "security.tls.enable_0rtt_data" = false;
-
-        # DISK
-        "browser.privatebrowsing.forceMediaMemoryCache" = true;
-        "browser.sessionstore.interval" = 60000;
 
         # SEARCH
         "browser.urlbar.trimHttps" = true;
         "browser.urlbar.untrimOnUserInteraction.featureGate" = true;
         "browser.search.separatePrivateDefault.ui.enabled" = true;
         "browser.urlbar.update2.engineAliasRefresh" = true;
-        #"browser.search.suggest.enabled" = false;
-        "browser.urlbar.quicksuggest.enabled" = false;
-        "browser.urlbar.groupLabels.enabled" = false;
-        "browser.formfill.enable" = false;
         "network.IDN_show_punycode" = true;
-
-        # PASSWORDS
-        "signon.formlessCapture.enabled" = false;
-        "signon.privateBrowsingCapture.enabled" = false;
-        "network.auth.subresource-http-auth-allow" = 1;
-
-        # MIXED
-        "security.mixed_content.block_display_content" = true;
-        "pdfjs.enableScripting" = false;
-
-        # EXTENSIONS
-        "extensions.enabledScopes" = 5;
-
-        # HEADERS
-        "network.http.referer.XOriginTrimmingPolicy" = 2;
-
-        # CONTAINERS
-        "privacy.userContext.ui.enabled" = true;
-
-        # SAFE
-        "browser.safebrowsing.downloads.remote.enabled" = false;
-
-        # MOZILLA
-        "geo.provider.network.url" = "https://beacondb.net/v1/geolocate";
-        "browser.search.update" = false;
-        "extensions.getAddons.cache.enabled" = false;
-
-        # TELEMETRY
-        "datareporting.policy.dataSubmissionEnabled" = false;
-        "browser.newtabpage.activity-stream.feeds.telemetry" = false;
-        "browser.newtabpage.activity-stream.telemetry" = false;
-
-        # CRASH
-        "browser.tabs.crashReporting.sendReport" = false;
-
-        # SECTION: PESKYFOX
-        # MOZILLA
-        "browser.privatebrowsing.vpnpromourl" = "";
-        "extensions.getAddons.showPane" = false;
-        "extensions.htmlaboutaddons.recommendations.enabled" = false;
-        "browser.discovery.enabled" = false;
-        "browser.shell.checkDefaultBrowser" = false;
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
-        "browser.preferences.moreFromMozilla" = false;
-        "browser.aboutConfig.showWarning" = false;
-        "browser.aboutwelcome.enabled" = false;
-        "browser.profiles.enabled" = true;
-
-        # THEME
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        "browser.compactmode.show" = true;
 
         # URL
         "browser.urlbar.unitConversion.enabled" = true;
         "browser.urlbar.trending.featureGate" = false;
-        "dom.text_fragments.create_text_fragment.enabled" = true;
 
-        # NEW
-        "browser.newtabpage.activity-stream.default.sites" = "";
-        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-        "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
-        "browser.newtabpage.activity-stream.showSponsored" = false;
-
-        # POCKET
-        "extensions.pocket.enabled" = false;
-
-        # DOWNLOADS
-        "browser.download.manager.addToRecentDocs" = false;
-
-        # PDF
-        "browser.download.open_pdf_attachments_inline" = true;
+        # MIXED CONTENT & CROSS-SITE
+        "security.mixed_content.block_display_content" = true;
+        "pdfjs.enableScripting" = false;
 
         # TAB
         "browser.bookmarks.openInTabClosesMenu" = false;
         "browser.menu.showViewImageInfo" = true;
+        "findbar.highlightAll" = true;
         "layout.word_select.eat_space_to_next_word" = false;
-
-        # SECTION: SMOOTHFOX
-        "general.smoothScroll" = true;
-        "general.smoothScroll.msdPhysics.enabled" = true;
       };
       policies = {
         ExtensionSettings = {
