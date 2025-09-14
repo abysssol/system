@@ -31,6 +31,7 @@
             # These are required to enable unfree nvidia drivers
             "nvidia-x11"
             "nvidia-settings"
+            "xow_dongle-firmware"
 
             "steam"
             "steam-run"

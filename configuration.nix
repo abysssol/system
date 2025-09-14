@@ -17,6 +17,14 @@
         "flakes"
       ];
       auto-optimise-store = true;
+      max-jobs = 24;
+      # Allow fetching build results from the Lean Cachix cache
+      trusted-substituters = [ "https://lean4.cachix.org/" ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "lean4.cachix.org-1:mawtxSxcaiWE24xCXXgh3qnvlTkyU7evRRnGeAhD4Wk="
+      ];
+
     };
     gc = {
       automatic = true;
@@ -28,6 +36,7 @@
   hardware = {
     enableRedistributableFirmware = true;
     openrazer.enable = true;
+    xone.enable = true;
     opentabletdriver.enable = true;
     graphics = {
       enable = true;
@@ -201,9 +210,9 @@
       unstable.prismlauncher
 
       heroic
-      unstable.gogdl
-      unstable.legendary-heroic
-      unstable.nile
+      gogdl
+      legendary-heroic
+      nile
 
       audacity
       lmms
@@ -255,9 +264,22 @@
 
     steam = {
       enable = true;
+
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
+
+      gamescopeSession.enable = true;
+      gamescopeSession.args = [
+        "-W" "2560"
+        "-H" "1440"
+        "-r" "144"
+      ];
     };
+    gamescope = {
+        enable = true;
+        capSysNice = true;
+      };
 
     firefox = {
       enable = true;
@@ -284,7 +306,7 @@
         "full-screen-api.transition-duration.enter" = "0 0";
         "full-screen-api.transition-duration.leave" = "0 0";
         "full-screen-api.warning.timeout" = 0;
-        
+
         # TRACKING
         "browser.contentblocking.category" = "strict";
         "browser.download.start_downloads_in_tmp_dir" = true;
