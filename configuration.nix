@@ -157,7 +157,6 @@
       graphicsmagick
       ffmpeg
       wineWowPackages.full
-      monero-cli
 
       shellharden
       shellcheck
@@ -198,14 +197,11 @@
       calibre
       mpv
       vlc
-      monero-gui
 
       firefox
-      unstable.tor-browser-bundle-bin
-      ungoogled-chromium
-      nyxt
+      unstable.tor-browser
+      chromium
       kiwix
-      element-desktop
 
       unstable.prismlauncher
 
@@ -251,6 +247,7 @@
     dconf.enable = true;
     ssh.startAgent = true;
     gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+    sway.enable = true;
 
     gnupg.agent.enable = true;
     gnupg.agent.pinentryPackage = pkgs.pinentry-tty;
