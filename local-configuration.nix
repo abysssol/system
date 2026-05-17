@@ -10,6 +10,7 @@
 {
   # Enable the unfree nvidia gpu drivers if necessary
   #services.xserver.videoDrivers = [ "nvidia" ];
+  #hardware.nvidia.open = false;
 
   # Support rocm for amd gpus
   hardware.graphics.extraPackages = with pkgs; [

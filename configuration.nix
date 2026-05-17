@@ -35,7 +35,6 @@
 
   hardware = {
     enableRedistributableFirmware = true;
-    openrazer.enable = true;
     xone.enable = true;
     opentabletdriver.enable = true;
     graphics = {
@@ -88,10 +87,13 @@
   };
 
   services = {
-    logind.powerKey = "ignore";
+    logind.settings.Login.HandlePowerKey = "ignore";
+    logind.settings.Login.HandlePowerKeyLongPress = "poweroff";
     libinput.enable = true;
     openssh.enable = true;
+    gnome.gcr-ssh-agent.enable = false;
     transmission.enable = true;
+    transmission.package = pkgs.transmission_4;
     nscd.enableNsncd = true;
     displayManager.cosmic-greeter.enable = true;
     desktopManager.cosmic.enable = true;
@@ -180,7 +182,7 @@
       procs
       zenith
       trippy
-      du-dust
+      dust
       dysk
       tokei
       starship
@@ -207,7 +209,7 @@
 
       heroic
       gogdl
-      legendary-heroic
+      legendary-gl
       nile
 
       audacity
@@ -413,7 +415,7 @@
     packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       nerd-fonts.hack
     ];
 
