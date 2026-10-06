@@ -3,8 +3,6 @@
 
 {
   pkgs,
-  unstable,
-  flakes,
   ...
 }:
 {
@@ -73,31 +71,18 @@
           "render"
           "dialout"
         ];
-        packages = with pkgs; [
-          (flakes.rust.override {
-            targets = [
-              "x86_64-unknown-linux-musl"
-              "wasm32-unknown-unknown"
-              "wasm32-wasip1"
-            ];
-          })
-          unstable.rust-analyzer
-
-          llvmPackages_latest.clang
-          llvmPackages_latest.bintools
-          llvmPackages_latest.lldb
-
-          cargo-show-asm
-          hyperfine
-          unstable.bacon
-          mdbook
-
-          unstable.lean4
-
-          protontricks
-          ffmpeg-normalize
-          unrar
-          bazecor
+      };
+      razakel = {
+        hashedPassword = "$y$j9T$m8idPCLE358BH4S6jwLvE0$/Ol7fZP5Ky00u2wmG5HDKErMUod1tgwfmuzLzKGNgoC";
+        isNormalUser = true;
+        extraGroups = [
+          "networkmanager"
+          "openrazer"
+          "transmission"
+          "libvirtd"
+          "kvm"
+          "video"
+          "render"
         ];
       };
     };

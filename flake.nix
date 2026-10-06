@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixos.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixos.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     rust.url = "github:oxalica/rust-overlay";
@@ -31,7 +31,7 @@
             # These are required to enable unfree nvidia drivers
             "nvidia-x11"
             "nvidia-settings"
-            "xow_dongle-firmware"
+            "xone-dongle-firmware"
 
             "steam"
             "steam-run"
@@ -40,6 +40,7 @@
 
             "obsidian"
             "unrar"
+            "discord"
           ];
       };
       pkgs = import nixos nixpkgsConfig;

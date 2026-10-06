@@ -4,6 +4,7 @@
 
 {
   pkgs,
+  flakes,
   hostName,
   unstable,
   blocklist,
@@ -153,23 +154,49 @@
       file
 
       yadm
-      neofetch
+      fastfetch
       yt-dlp
       pandoc
       graphicsmagick
       ffmpeg
-      wineWowPackages.full
+      wineWow64Packages.full
+      aider-chat-full
+      protontricks
+      ffmpeg-normalize
+      unrar
 
       shellharden
       shellcheck
       shfmt
       nil
-      nixfmt-rfc-style
-      nodePackages.yaml-language-server
+      nixfmt
+      tombi
+      yaml-language-server
+
+      (flakes.rust.override {
+        targets = [
+          "x86_64-unknown-linux-musl"
+          "wasm32-unknown-unknown"
+          "wasm32-wasip2"
+        ];
+      })
+      llvmPackages_latest.clang
+      llvmPackages_latest.bintools
+      llvmPackages_latest.lldb
+      unstable.lean4
 
       unstable.helix
-      tealdeer
       unstable.jujutsu
+      unstable.weave
+      unstable.rust-analyzer
+      unstable.bacon
+      cargo-show-asm
+      hyperfine
+      tokei
+      starship
+      tealdeer
+      mdbook
+
       eza
       zoxide
       broot
@@ -184,9 +211,6 @@
       trippy
       dust
       dysk
-      tokei
-      starship
-      gitui
 
       # gui
       alacritty
@@ -204,6 +228,9 @@
       unstable.tor-browser
       chromium
       kiwix
+
+      bazecor
+      discord
 
       unstable.prismlauncher
 
